@@ -22,3 +22,5 @@ build:
         name: make tarball
         code: |
           tar cJf trpl-ja.txz public
+          cp trpl-ja.txz $WERCKER_OUTPUT_DIR/
+          cp -rp public/* $WERCKER_REPORT_DIR/
