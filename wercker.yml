@@ -22,5 +22,8 @@ build:
         name: make tarball
         code: |
           tar cJf trpl-ja.txz public
+    - script:
+        name: save artifacts
+        code: |
           cp trpl-ja.txz $WERCKER_OUTPUT_DIR/
-          cp -rp public/* $WERCKER_REPORT_DIR/
+          cp -rp public/* $WERCKER_REPORT_ARTIFACTS_DIR
