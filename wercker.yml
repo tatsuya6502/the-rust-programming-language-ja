@@ -8,14 +8,14 @@ dev:
     - script:
         name: build the book
         code: |
-          make
+          make RUSTBOOK=/root/.cargo/bin/rustbook
 
 build:
   steps:
     - script:
         name: build the book
         code: |
-          make
+          make RUSTBOOK=/root/.cargo/bin/rustbook
     - script:
         name: make tarball
         code: |
