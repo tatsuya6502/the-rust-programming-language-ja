@@ -1,0 +1,22 @@
+box:
+  id: quay.io/tatsuya6502/rustbook
+  tag: latest
+  registry: quay.io
+
+dev:
+  steps:
+    - script:
+        name: build the book
+        code: |
+          make
+
+build:
+  steps:
+    - script:
+        name: build the book
+        code: |
+          make
+    - script:
+        name: make tarball
+        code: |
+          tar cJf trpl-ja.txz public
