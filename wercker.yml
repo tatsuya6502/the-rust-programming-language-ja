@@ -13,7 +13,7 @@ dev:
 build:
   steps:
     - install-packages:
-        packages: xz
+        packages: xz-utils
     - script:
         name: build the book
         code: |
