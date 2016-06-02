@@ -12,6 +12,8 @@ dev:
 
 build:
   steps:
+    - install-packages:
+        packages: xz
     - script:
         name: build the book
         code: |
