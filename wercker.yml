@@ -5,6 +5,8 @@ box:
 
 dev:
   steps:
+    - install-packages:
+        packages: xz-utils
     - script:
         name: build the book
         code: |
@@ -19,10 +21,11 @@ build:
         code: |
           make RUSTBOOK=/root/.cargo/bin/rustbook
     - script:
-        name: make tarball
+        name: make tarballs
         code: |
-          tar cJf trpl-ja.txz public
+          tar cJf public-1.6.txz public/1.6
+          tar cJf public-1.9.txz public/1.9
     - script:
-        name: save artifacts
+        name: save artifacts [Download]
         code: |
-          cp trpl-ja.txz $WERCKER_REPORT_ARTIFACTS_DIR
+          cp public-*.txz $WERCKER_REPORT_ARTIFACTS_DIR
