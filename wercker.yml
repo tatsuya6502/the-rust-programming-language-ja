@@ -25,5 +25,4 @@ build:
     - script:
         name: save artifacts
         code: |
-          cp trpl-ja.txz $WERCKER_OUTPUT_DIR/
-          cp -rp public/* $WERCKER_REPORT_ARTIFACTS_DIR
+          cp trpl-ja.txz $WERCKER_REPORT_ARTIFACTS_DIR
