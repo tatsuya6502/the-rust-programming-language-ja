@@ -14,19 +14,18 @@ dependencies:
     - sudo apt-get install curl file gcc git make openssh-client
     - sudo apt-get install tree
     - mkdir -p rust
-    - tree $RUST_HOME
     - ./tools/circleci/setup-rust.sh $RUST_HOME $RUST_NIGHTLY_RELEASE_DATE
-    - tree $RUST_HOME
-    - rustc --version --verbose
-    - cargo --version --verbose
-    - $RUST_HOME/bin/cargo install --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
+    - ls -l $RUST_HOME/bin
+    - $RUST_HOME/bin/rustc --version --verbose
+    - $RUST_HOME/bin/cargo --version --verbose
+    - $RUST_HOME/bin/cargo install --root . --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
   cache_directories:
     - "rust"
     - "~/.cargo"
 
 test:
   override:
-    - make RUSTBOOK=$CARGO_HOME/bin/rustbook
+    - make RUSTBOOK=./rustbook
 
   post:
     - mkdir $CIRCLE_ARTIFACTS/1.9
