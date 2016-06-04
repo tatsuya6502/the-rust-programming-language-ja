@@ -1,0 +1,12 @@
+machine:
+  timezone:
+    Asia/Tokyo
+
+test:
+  post:
+    - mkdir $CIRCLE_ARTIFACTS/1.6
+    - mv public/1.6/index.html $CIRCLE_ARTIFACTS/1.6
+    - mv public/1.6/book $CIRCLE_ARTIFACTS/1.6
+    - mv public/1.6/*.inc public/1.6/*.css public/1.6/*.js $CIRCLE_ARTIFACTS/1.6
+    - tar cJf public-1.6.txz public/1.6
+    - mv public-1.6.txz $CIRCLE_ARTIFACTS
