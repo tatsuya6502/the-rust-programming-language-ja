@@ -3,7 +3,7 @@ machine:
     Asia/Tokyo
   environment:
     RUST_NIGHTLY_RELEASE_DATE: "2016-06-01"
-    RUST_HOME: $PWD/rust/nightly-$RUST_NIGHTLY_RELEASE_DATE
+    RUST_HOME: $HOME/rust/nightly-$RUST_NIGHTLY_RELEASE_DATE
     CARGO_HOME: $HOME/.cargo
     RUSTBOOK_GIT_URL: https://github.com/tatsuya6502/rustbook.git
     RUSTBOOK_GIT_BRANCH: rust-1.11.0-nightly
@@ -12,14 +12,11 @@ machine:
 
 dependencies:
   post:
-    - echo $RUST_HOME
-    - echo $PATH
     - sudo apt-get update
     - sudo apt-get install curl file gcc git make openssh-client
     - sudo apt-get install tree
     - mkdir -p rust
     - ./tools/circleci/setup-rust.sh $RUST_HOME $RUST_NIGHTLY_RELEASE_DATE
-    - ls -l $RUST_HOME/bin
     - rustc --version --verbose
     - cargo --version --verbose
     - cargo install --root $RUST_HOME --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
@@ -27,7 +24,7 @@ dependencies:
     - ls -l $RUST_HOME/bin
     - ls -l $RUST_HOME/lib
   cache_directories:
-    - "rust"
+    - "~/rust"
     - "~/.cargo"
 
 test:
