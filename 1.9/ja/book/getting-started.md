@@ -1,10 +1,10 @@
 % はじめる
 <!-- % Getting Started -->
 
-<!-- This first section of the book will get us going with Rust and its tooling. -->
+<!-- This first chapter of the book will get us going with Rust and its tooling. -->
 <!-- First, we’ll install Rust. Then, the classic ‘Hello World’ program. Finally, -->
 <!-- we’ll talk about Cargo, Rust’s build system and package manager. -->
-この一番最初のセクションでRustとツールの使い方をやっていきます。
+この一番最初の章でRustとツールの使い方をやっていきます。
 最初にRustをインストールします。そしてお決まりの「Hello World」をやります。
 最後にRustのビルドシステム兼パッケージマネージャのCargoについて話します。
 
@@ -12,10 +12,10 @@
 # Rustのインストール
 
 <!-- The first step to using Rust is to install it. Generally speaking, you’ll need -->
-<!-- an Internet connection to run the commands in this chapter, as we’ll be -->
+<!-- an Internet connection to run the commands in this section, as we’ll be -->
 <!-- downloading Rust from the internet. -->
 Rustを使い始める最初のステップはインストールです。
-この章のコマンドでインターネットからRustのダウンロードをするのでインターネットへの接続が必要でしょう。
+このセクションでは、コマンドでインターネットからRustのダウンロードをするのでインターネットへの接続が必要でしょう。
 
 <!-- We’ll be showing off a number of commands using a terminal, and those lines all -->
 <!-- start with `$`. We don't need to type in the `$`s, they are there to indicate -->
@@ -61,6 +61,7 @@ Rustのサポートレベルは3階級に分かれていて、それぞれ違う
 
 |  Target                       | std |rustc|cargo| notes                      |
 |-------------------------------|-----|-----|-----|----------------------------|
+| `i686-pc-windows-msvc`        |  ✓  |  ✓  |  ✓  | 32-bit MSVC (Windows 7+)   |
 | `x86_64-pc-windows-msvc`      |  ✓  |  ✓  |  ✓  | 64-bit MSVC (Windows 7+)   |
 | `i686-pc-windows-gnu`         |  ✓  |  ✓  |  ✓  | 32-bit MinGW (Windows 7+)  |
 | `x86_64-pc-windows-gnu`       |  ✓  |  ✓  |  ✓  | 64-bit MinGW (Windows 7+)  |
@@ -92,7 +93,13 @@ Rustのサポートレベルは3階級に分かれていて、それぞれ違う
 
 |  Target                       | std |rustc|cargo| notes                      |
 |-------------------------------|-----|-----|-----|----------------------------|
-| `i686-pc-windows-msvc`        |  ✓  |  ✓  |  ✓  | 32-bit MSVC (Windows 7+)   |
+| `x86_64-unknown-linux-musl`   |  ✓  |     |     | 64-bit Linux with MUSL     |
+| `arm-linux-androideabi`       |  ✓  |     |     | ARM Android                |
+| `arm-unknown-linux-gnueabi`   |  ✓  |  ✓  |     | ARM Linux (2.6.18+)        |
+| `arm-unknown-linux-gnueabihf` |  ✓  |  ✓  |     | ARM Linux (2.6.18+)        |
+| `aarch64-unknown-linux-gnu`   |  ✓  |     |     | ARM64 Linux (2.6.18+)      |
+| `mips-unknown-linux-gnu`      |  ✓  |     |     | MIPS Linux (2.6.18+)       |
+| `mipsel-unknown-linux-gnu`    |  ✓  |     |     | MIPS (LE) Linux (2.6.18+)  |
 
 <!-- ### Tier 3 -->
 ### 3級
@@ -110,28 +117,25 @@ Rustのサポートレベルは3階級に分かれていて、それぞれ違う
 
 |  Target                       | std |rustc|cargo| notes                      |
 |-------------------------------|-----|-----|-----|----------------------------|
-| `x86_64-unknown-linux-musl`   |  ✓  |     |     | 64-bit Linux with MUSL     |
-| `arm-linux-androideabi`       |  ✓  |     |     | ARM Android                |
 | `i686-linux-android`          |  ✓  |     |     | 32-bit x86 Android         |
 | `aarch64-linux-android`       |  ✓  |     |     | ARM64 Android              |
-| `arm-unknown-linux-gnueabi`   |  ✓  |  ✓  |     | ARM Linux (2.6.18+)        |
-| `arm-unknown-linux-gnueabihf` |  ✓  |  ✓  |     | ARM Linux (2.6.18+)        |
-| `aarch64-unknown-linux-gnu`   |  ✓  |     |     | ARM64 Linux (2.6.18+)      |
-| `mips-unknown-linux-gnu`      |  ✓  |     |     | MIPS Linux (2.6.18+)       |
-| `mipsel-unknown-linux-gnu`    |  ✓  |     |     | MIPS (LE) Linux (2.6.18+)  |
 | `powerpc-unknown-linux-gnu`   |  ✓  |     |     | PowerPC Linux (2.6.18+)    |
+| `powerpc64-unknown-linux-gnu` |  ✓  |     |     | PPC64 Linux (2.6.18+)      |
+|`powerpc64le-unknown-linux-gnu`|  ✓  |     |     | PPC64LE Linux (2.6.18+)    |
+|`armv7-unknown-linux-gnueabihf`|  ✓  |     |     | ARMv7 Linux (2.6.18+)      |
 | `i386-apple-ios`              |  ✓  |     |     | 32-bit x86 iOS             |
 | `x86_64-apple-ios`            |  ✓  |     |     | 64-bit x86 iOS             |
 | `armv7-apple-ios`             |  ✓  |     |     | ARM iOS                    |
 | `armv7s-apple-ios`            |  ✓  |     |     | ARM iOS                    |
 | `aarch64-apple-ios`           |  ✓  |     |     | ARM64 iOS                  |
-| `i686-unknown-freebsd`        |  ✓  |  ✓  |     | 32-bit FreeBSD             |
-| `x86_64-unknown-freebsd`      |  ✓  |  ✓  |     | 64-bit FreeBSD             |
+| `i686-unknown-freebsd`        |  ✓  |  ✓  |  ✓  | 32-bit FreeBSD             |
+| `x86_64-unknown-freebsd`      |  ✓  |  ✓  |  ✓  | 64-bit FreeBSD             |
 | `x86_64-unknown-openbsd`      |  ✓  |  ✓  |     | 64-bit OpenBSD             |
 | `x86_64-unknown-netbsd`       |  ✓  |  ✓  |     | 64-bit NetBSD              |
 | `x86_64-unknown-bitrig`       |  ✓  |  ✓  |     | 64-bit Bitrig              |
 | `x86_64-unknown-dragonfly`    |  ✓  |  ✓  |     | 64-bit DragonFlyBSD        |
 | `x86_64-rumprun-netbsd`       |  ✓  |     |     | 64-bit NetBSD Rump Kernel  |
+| `x86_64-sun-solaris`          |  ✓  |  ✓  |     | 64-bit Solaris/SunOS       |
 | `i686-pc-windows-msvc` (XP)   |  ✓  |     |     | Windows XP support         |
 | `x86_64-pc-windows-msvc` (XP) |  ✓  |     |     | Windows XP support         |
 
@@ -151,47 +155,20 @@ LinuxかMacを使っているなら以下を入力するだけです
 $ curl -sSf https://static.rust-lang.org/rustup.sh | sh
 ```
 
-<!-- This will download a script, and stat the installation. If it all goes well, -->
+<!-- This will download a script, and start the installation. If it all goes well, -->
 <!-- you’ll see this appear: -->
 このコマンドでスクリプトをダウンロードしインストールを始めます。
 全て上手くいったら以下が表示される筈です。
 
 ```text
-Welcome to Rust.
-
-This script will download the Rust compiler and its package manager, Cargo, and
-install them to /usr/local. You may install elsewhere by running this script
-with the --prefix=<path> option.
-
-The installer will run under ‘sudo’ and may ask you for your password. If you do
-not want the script to run ‘sudo’ then pass it the --disable-sudo flag.
-
-You may uninstall later by running /usr/local/lib/rustlib/uninstall.sh,
-or by running this script again with the --uninstall flag.
-
-Continue? (y/N) 
+Rust is ready to roll.
 ```
 
 > 訳注:
-> 
-> 
+>
+>
 > ```text
-> Rustへようこそ。
-> 
-> このスクリプトはRustコンパイラとそのパッケージマネージャCargoをダウンロードし、/usr/local
-> へとインストールします。--prefix=<path> オプションを使うことで他の場所へインストール
-> 出来ます。
-> 
-> インストーラは「sudo」下で走るのでパスワードを尋きます。もし'sudo'を使ってほしくないなら
-> --disable-sudo フラグを渡します。
-> 
-> You may uninstall later by running /usr/local/lib/rustlib/uninstall.sh,
-> or by running this script again with the --uninstall flag.
-> 
-> /usr/local/lib/rustlib/uninstall.shを実行するかこのスクリプトに--uninstallフラグを
-> 付けて実行することで後程アンインストール出来ます。
-> 
-> 続けますか? (y/N) 
+> Rustを使う準備ができました。
 > ```
 
 <!-- From here, press `y` for ‘yes’, and then follow the rest of the prompts. -->
@@ -208,7 +185,7 @@ Windowsを使っているなら適切な[インストーラ][install-page]をダ
 <!-- ## Uninstalling -->
 ## アンインストール
 
-<!-- Uninstalling Rust is as easy as installing it. On Linux or Mac, just run -->
+<!-- Uninstalling Rust is as easy as installing it. On Linux or Mac, run -->
 <!-- the uninstall script: -->
 Rustのアンインストールはインストールと同じくらい簡単です。
 LinuxかMacならアンインストールスクリプトを使うだけです。
