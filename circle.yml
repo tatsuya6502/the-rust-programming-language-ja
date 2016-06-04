@@ -32,7 +32,7 @@ dependencies:
 
 test:
   override:
-    - make RUSTBOOK=$RUSTHOME/bin/rustbook
+    - make RUSTBOOK=$RUST_HOME/bin/rustbook
 
   post:
     - mkdir $CIRCLE_ARTIFACTS/1.9
