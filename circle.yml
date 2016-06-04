@@ -13,7 +13,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install curl file gcc git make openssh-client
     - ./tools/circleci/setup-rust.sh $RUST_HOME $RUST_NIGHTLY_RELEASE_DATE
-    - cargo install --git $RUSTBOOK_GIT_URL --branch $GIT_BRANCH || true
+    - cargo install --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
   cache_directories:
     - $RUST_HOME
     - $CARGO_HOME
