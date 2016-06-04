@@ -4,7 +4,6 @@ machine:
   environment:
     RUST_HOME: "rust/nightly-2016-06-01"
     RUST_NIGHTLY_RELEASE_DATE: "2016-06-01"
-    LD_LIBRARY_PATH: "rust/nightly-2016-06-01/lib"
     CARGO_HOME: "~/.cargo"
     RUSTBOOK_GIT_URL: "https://github.com/tatsuya6502/rustbook.git"
     RUSTBOOK_GIT_BRANCH: "rust-1.11.0-nightly"
@@ -17,17 +16,20 @@ dependencies:
     - mkdir -p rust
     - ./tools/circleci/setup-rust.sh $RUST_HOME $RUST_NIGHTLY_RELEASE_DATE
     - ls -l $RUST_HOME/bin
-    - $RUST_HOME/bin/rustc --version --verbose
-    - $RUST_HOME/bin/cargo --version --verbose
-    - $RUST_HOME/bin/cargo install --root . --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
-    - ./rustbook help
+    - export PATH=$PATH:$PWD/$RUST_HOME/bin
+    - rustc --version --verbose
+    - cargo --version --verbose
+    - cargo install --root $PWD/$RUST_HOME/bin --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
+    - rustbook help
+    - ls -l $RUST_HOME/bin
+    - ls -l $RUST_HOME/lib
   cache_directories:
     - "rust"
     - "~/.cargo"
 
 test:
   override:
-    - make RUSTBOOK=./rustbook
+    - make RUSTBOOK=$PWD/$RUSTHOME/bin/rustbook
 
   post:
     - mkdir $CIRCLE_ARTIFACTS/1.9
