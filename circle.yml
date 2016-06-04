@@ -21,7 +21,7 @@ dependencies:
     - ls -l $RUST_HOME/bin
     - rustc --version --verbose
     - cargo --version --verbose
-    - cargo install --root $PWD/$RUST_HOME/bin --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
+    - cargo install --root $RUST_HOME --git $RUSTBOOK_GIT_URL --branch $RUSTBOOK_GIT_BRANCH || true
     - rustbook help
     - ls -l $RUST_HOME/bin
     - ls -l $RUST_HOME/lib
