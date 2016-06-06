@@ -17,7 +17,9 @@ REVISION=$(git rev-parse --short HEAD)
 
 # If there are anything to commit, do `git commit` and `git push`
 git add public
-git status | grep -q 'nothing to commit'
+set +e
+ret=$(git status | grep -q 'nothing to commit'; echo $?)
+set -e
 if [ $? -eq 0 ] ; then
     echo "Nothing to push to master."
 else

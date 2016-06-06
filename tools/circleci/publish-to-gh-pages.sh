@@ -16,9 +16,9 @@ set -e
 REVISION=$(git rev-parse --short HEAD)
 
 # Recreate the worktree for gh-pages
-git branch -D gh-pages || true
 rm -rf ./gh-pages || true
 git worktree prune || true
+git branch -D gh-pages || true
 mkdir -p ./gh-pages
 git branch gh-pages origin/gh-pages
 git worktree add ./gh-pages gh-pages
@@ -28,7 +28,7 @@ cp -rp public/* gh-pages/
 cd gh-pages
 
 # Create circle.yml to disable CI on gh-pages branch.
-cat > circle.yml  <<EOF
+cat > circle.yml <<EOF
 general:
   branches:
     ignore:
@@ -37,8 +37,10 @@ EOF
 
 # If there are anything to commit, do `git commit` and `git push`
 git add .
-git status | grep -q 'nothing to commit'
-if [ $? -eq 0 ] ; then
+set +e
+ret=$(git status | grep -q 'nothing to commit'; echo $?)
+set -e
+if [ $ret -eq 0 ] ; then
     echo "Nothing to push to gh-pages."
 else
     git commit -m "ci: publish pages at ${REVISION}"
