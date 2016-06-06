@@ -48,13 +48,9 @@ deployment:
     commands:
       - git config user.name "Tatsuya Kawano (CircleCI)"
       - git config user.email "tatsuya@hibaridb.org"
-      - git add public
-      - git commit -m "[ci] generate pages at $(git rev-parse --short HEAD)"
-      - git push origin master
-      - rm -rf public/1.9
       - git branch gh-pages origin/gh-pages
       - git worktree add ./gh-pages gh-pages
       - cp -rp public/* gh-pages/
       - cd gh-pages && git add .
-      - rev=$(git rev-parse --short HEAD) && cd gh-pages && git commit -m "[ci] generate pages at ${rev}"
+      - rev=$(git rev-parse --short HEAD) && cd gh-pages && git commit -m "[ci] generate pages at ${rev}" || true
       - cd gh-pages && git push origin gh-pages
