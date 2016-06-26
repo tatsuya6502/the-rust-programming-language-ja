@@ -259,7 +259,9 @@ Rustにおいて、関数の回復不可能な誤用（つまり、プログラ�
 <!-- library crate, so that they don't get out of date. If you have some C code but -->
 <!-- `rustdoc` thinks it's Rust because you left off the annotation, `rustdoc` will -->
 <!-- complain when trying to generate the documentation. -->
-ここでは正しい注釈を選ぶことが重要です。なぜなら、 `rustdoc` はそれを興味深い方法で使うからです。それらが実際のコードと不整合を起こさないように、ライブラリクレート内で実際にあなたの例をテストするために使うのです。
+ここでは正しい注釈を選ぶことが重要です。
+なぜなら、 `rustdoc` はそれを興味深い方法で使うからです。
+それらが実際のコードと不整合を起こさないように、ライブラリクレート内で実際にあなたの例をテストするために使うのです。
 もし例の中にCのコードが含まれているのに、あなたが注釈を付けるのを忘れてしまい、 `rustdoc` がそれをRustのコードだと考えてしまえば、 `rustdoc` はドキュメントを生成しようとするときに怒るでしょう。
 
 <!-- ## Documentation as tests -->
@@ -488,7 +490,7 @@ macro_rules! panic_unless {
 
 ```rust,ignore
 /// use std::io;
-/// let mut input = String::new(); 
+/// let mut input = String::new();
 /// try!(io::stdin().read_line(&mut input));
 ```
 
@@ -503,7 +505,7 @@ macro_rules! panic_unless {
 /// ```
 /// use std::io;
 /// # fn foo() -> io::Result<()> {
-/// let mut input = String::new(); 
+/// let mut input = String::new();
 /// try!(io::stdin().read_line(&mut input));
 /// # Ok(())
 /// # }
@@ -703,7 +705,8 @@ Markdownファイルの中ではこうします。
 
 <!-- You won't often see this attribute used for writing documentation, but it -->
 <!-- can be useful when changing some options, or when writing a macro. -->
-このアトリビュートがドキュメントを書くために使われているのを見ることはそんなにないでしょう。しかし、これは何らかのオプションを変更したり、マクロを書いたりするときに便利です。
+このアトリビュートがドキュメントを書くために使われているのを見ることはそんなにないでしょう。
+しかし、これは何らかのオプションを変更したり、マクロを書いたりするときに便利です。
 
 <!-- ### Re-exports -->
 ### 再エクスポート

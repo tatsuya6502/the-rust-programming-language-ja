@@ -34,8 +34,8 @@ unsafe fn danger_will_robinson() {
 All functions called from [FFI][ffi] must be marked as `unsafe`, for example.
 The second use of `unsafe` is an unsafe block:
 -->
-たとえば、[FFI][ffi]から呼び出されるすべての関数は`unsafe`で印付けることが必要です。
-`unsafe`の2つめの用途は、アンセーフブロックです。
+たとえば、[FFI][ffi]から呼び出されるすべての関数は `unsafe` で印付けることが必要です。
+`unsafe` の2つめの用途は、アンセーフブロックです。
 
 [ffi]: ffi.html
 
@@ -172,7 +172,9 @@ avoided, even when writing `unsafe` code:
 In both unsafe functions and unsafe blocks, Rust will let you do three things
 that you normally can not do. Just three. Here they are:
 -->
-アンセーフ関数・アンセーフブロックでは、Rustは普段できない3つのことをさせてくれます。たった3つです。それは、
+アンセーフ関数・アンセーフブロックでは、Rustは普段できない3つのことをさせてくれます。
+たった3つです。
+それは、
 
 <!--
 1. Access or update a [static mutable variable][static].
@@ -217,7 +219,7 @@ details, see the [static][static] section of the book.
 -->
 Rustには「`static mut`」という、ミュータブルでグローバルな状態を実現する機能があります。
 これを使うことはデータレースが起こるおそれがあるので、本質的に安全ではありません。
-詳細は、この本の[static][static]セクションを参照してください。
+詳細は、この本の [static][static] セクションを参照してください。
 
 [static]: const-and-static.html#static
 
@@ -232,7 +234,7 @@ do. For more on raw pointers, see [their section of the book][rawpointers].
 -->
 生ポインタによって任意のポインタ演算が可能になりますが、いくつもの異なるメモリ安全とセキュリティの問題が起こるおそれがあります。
 ある意味で、任意のポインタを参照外しする能力は行いうる操作のうち最も危険なもののひとつです。
-詳細は、[この本の生ポインタに関するセクション][rawpointers]を参照してください。
+詳細は、 [この本の生ポインタに関するセクション][rawpointers] を参照してください。
 
 [rawpointers]: raw-pointers.html
 
@@ -252,13 +254,14 @@ intrinsics][intrinsics] as unsafe functions, and some unsafe functions bypass
 safety checks, trading safety for speed.
 -->
 この能力は強力で多彩です。
-Rustはいくらかの[compiler intrinsics][intrinsics]をアンセーフ関数として公開しており、また、いくつかのアンセーフ関数は安全性検査を回避することで、安全性とスピードを引き換えています。
+Rustはいくらかの [compiler intrinsics][intrinsics] をアンセーフ関数として公開しており、また、いくつかのアンセーフ関数は安全性検査を回避することで、安全性とスピードを引き換えています。
 
 <!--
 I’ll repeat again: even though you _can_ do arbitrary things in unsafe blocks
 and functions doesn’t mean you should. The compiler will act as though you’re
 upholding its invariants, so be careful!
 -->
-繰り返しになりますが、アンセーフブロックと関数の内部で任意のことが _できる_ としても、それをすべきだということを意味しません。コンパイラは、あなたが不変量を守っているかのように動作しますから、注意してください!
+繰り返しになりますが、アンセーフブロックと関数の内部で任意のことが _できる_ としても、それをすべきだということを意味しません。
+コンパイラは、あなたが不変量を守っているかのように動作しますから、注意してください!
 
 [intrinsics]: intrinsics.html

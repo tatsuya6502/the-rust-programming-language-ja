@@ -7,8 +7,7 @@
 <!-- to write a `Graph` trait, you have two types to be generic over: the node type -->
 <!-- and the edge type. So you might write a trait, `Graph<N, E>`, that looks like -->
 <!-- this: -->
-関連型は、Rust型システムの強力な部分です。関連型は、「型族」という概念と関連が有り、
-言い換えると、複数の型をグループ化するものです。
+関連型は、Rust型システムの強力な部分です。関連型は、「型族」という概念と関連が有り、言い換えると、複数の型をグループ化するものです。
 この説明はすこし抽象的なので、実際の例を見ていきましょう。
 例えば、 `Graph` トレイトを定義したいとしましょう、このときジェネリックになる２つの型: 頂点の型、辺の型 が存在します。
 そのため、以下のように `Graph<N, E>` と書きたくなるでしょう:
@@ -69,7 +68,8 @@ fn distance<G: Graph>(graph: &G, start: &G::N, end: &G::N) -> u32 { ... }
 ## 関連型を定義する
 
 <!-- Let’s build that `Graph` trait. Here’s the definition: -->
-早速、`Graph` トレイトを定義しましょう。以下がその定義です:
+早速、`Graph` トレイトを定義しましょう。
+以下がその定義です:
 
 ```rust
 trait Graph {
@@ -83,7 +83,8 @@ trait Graph {
 
 <!-- Simple enough. Associated types use the `type` keyword, and go inside the body -->
 <!-- of the trait, with the functions. -->
-非常にシンプルですね。関連型には `type` キーワードを使い、そしてトレイトの本体や関数で利用します。
+非常にシンプルですね。
+関連型には `type` キーワードを使い、そしてトレイトの本体や関数で利用します。
 
 <!-- These `type` declarations can have all the same thing as functions do. For example, -->
 <!-- if we wanted our `N` type to implement `Display`, so we can print the nodes out, -->
@@ -147,7 +148,6 @@ impl Graph for MyGraph {
 まず、はじめに3つの `struct` が必要です、ひとつはグラフのため、そしてひとつは頂点のため、そしてもうひとつは辺のため。
 もし異なる型を利用することが適切ならば、そのようにすると良いでしょう、今回はこの3つの `struct` を用います。
 
-
 <!-- Next is the `impl` line, which is just like implementing any other trait. -->
 次は `impl` の行です、これは他のトレイトを実装するときと同様です。
 
@@ -207,7 +207,7 @@ let obj = Box::new(graph) as Box<Graph>;
 
 <!-- We can’t create a trait object like this, because we don’t know the associated -->
 <!-- types. Instead, we can write this: -->
-上のようにしてトレイトオブジェクトを作ることはできません、なぜなら関連型について知らないからです
+上のようにしてトレイトオブジェクトを作ることはできません、なぜなら関連型について知らないからです。
 代わりに以下のように書くことができます:
 
 ```rust

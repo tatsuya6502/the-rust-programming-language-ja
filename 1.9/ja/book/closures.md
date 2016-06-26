@@ -8,8 +8,7 @@
 <!-- them, as we’ll see. -->
 しばしば、関数と _自由変数_ と一つにまとめておくことがコードの明確さや再利用に役立つ場合が有ります。
 自由変数は外部のスコープから来て、関数中で使われるときに「閉じ込め」られます。
-そのためそのようなまとまりを「クロージャ」と呼び、
-Rustはこれから見ていくようにクロージャの非常に良い実装を提供しています。
+そのためそのようなまとまりを「クロージャ」と呼び、Rustはこれから見ていくようにクロージャの非常に良い実装を提供しています。
 
 <!-- # Syntax -->
 # 構文
@@ -28,7 +27,7 @@ assert_eq!(2, plus_one(1));
 <!-- case, `x + 1`. Remember that `{ }` is an expression, so we can have multi-line -->
 <!-- closures too: -->
 束縛 `plus_one` を作成し、クロージャを代入しています。
-クロージャの引数はパイプ( `|` )の間に書きます、そしてクロージャの本体は式です、
+クロージャの引数はパイプ( `|` )の間に書きます、そしてクロージャの本体は式です。
 この場合は `x + 1` がそれに当たります。
 `{ }` が式であることを思い出して下さい、 そのため複数行のクロージャを作成することも可能です:
 
@@ -67,9 +66,7 @@ assert_eq!(2, plus_one(1));
 <!-- can. -->
 しかし、このように型を示す必要はありません。
 なぜでしょう？一言で言えば、これは使いやすさのためです。
-名前の有る関数の型を全て指定するのはドキュメンテーションや型推論の役に立ちますが、
-クロージャの型は殆ど示されません、これはクロージャたちが匿名であり、
-さらに名前付きの関数が引き起こすと思われるような定義から離れた箇所で発生するエラーの要因ともならないためです。
+名前の有る関数の型を全て指定するのはドキュメンテーションや型推論の役に立ちますが、クロージャの型は殆ど示されません、これはクロージャたちが匿名であり、さらに名前付きの関数が引き起こすと思われるような定義から離れた箇所で発生するエラーの要因ともならないためです。
 
 <!-- The second is that the syntax is similar, but a bit different. I’ve added -->
 <!-- spaces here for easier comparison: -->
@@ -141,8 +138,7 @@ fn main() {
 <!-- on `num` because the closure is already borrowing it. If we let the closure go -->
 <!-- out of scope, we can: -->
 冗長ですが役に立つエラーメッセージです!
-エラーが示しているように、クロージャが既に `num` を借用しているために、
-`num` の変更可能な借用を取得することはできません。
+エラーが示しているように、クロージャが既に `num` を借用しているために、 `num` の変更可能な借用を取得することはできません。
 もしクロージャがスコープ外になるようにした場合以下のようにできます:
 
 ```rust
@@ -182,7 +178,7 @@ let takes_nums = || nums;
 <!-- `Vec<T>` has ownership over its contents, and therefore, when we refer to it -->
 <!-- in our closure, we have to take ownership of `nums`. It’s the same as if we’d -->
 <!-- passed `nums` to a function that took ownership of it. -->
-`Vec<T>` はその要素に対する所有権を持っています、
+`Vec<T>` はその要素に対する所有権を持っています。
 それゆえそれらの要素をクロージャ内で参照した場合、 `num` の所有権を取ることになります。
 これは `num`を `num` の所有権を取る関数に渡した場合と同じです。
 
@@ -203,7 +199,7 @@ let owns_num = move |x: i32| x + num;
 <!-- In this case, `5` implements `Copy`, and so `owns_num` takes ownership of a copy -->
 <!-- of `num`. So what’s the difference? -->
 このようにすると `move` というキーワードにもかかわらず、変数は通常のmoveのセマンティクスに従います。
-この場合、 `5` は `Copy` を実装しています、
+この場合、 `5` は `Copy` を実装しています。
 そのため `owns_num` は `num` のコピーの所有権を取得します。
 では、なにが異なるのでしょうか？
 
@@ -259,7 +255,7 @@ assert_eq!(5, num);
 <!-- gives you tons of control over what your code does, and closures are no -->
 <!-- different. -->
 クロージャを引数や返り値にすることについて説明する間に、クロージャの実装についてもう少し説明する必要があります。
-システム言語としてRustはコードの動作についてコントロールする方法を大量に提供しています、
+システム言語としてRustはコードの動作についてコントロールする方法を大量に提供しています。
 そしてそれはクロージャも例外ではありません。
 
 <!-- # Closure implementation -->
@@ -313,8 +309,11 @@ pub trait FnOnce<Args> {
 <!-- covers all three kinds of `self` via the usual method call syntax. But we’ve -->
 <!-- split them up into three traits, rather than having a single one. This gives us -->
 <!-- a large amount of control over what kind of closures we can take. -->
-これらのトレイトの間のいくつかの違いに気がつくことでしょう、しかし大きな違いは `self` についてです:
-`Fn` は `&self` を引数に取ります、 `FnMut` は `&mut self` を引数に取ります、そして `FnOnce` は `self` を引数に取ります。
+これらのトレイトの間のいくつかの違いに気がつくことでしょう。
+しかし大きな違いは `self` についてです:
+`Fn` は `&self` を引数に取ります。
+`FnMut` は `&mut self` を引数に取ります。
+そして `FnOnce` は `self` を引数に取ります。
 これは通常のメソッド呼び出しにおける `self` のすべての種類をカバーしています。
 しかし、これら `self` の各種類を一つの大きなトレイトにまとめるのではなく異なるトレイトに分けています。
 このようにすることで、どのような種類のクロージャを取るのかについて多くをコントロールすることができます。
@@ -331,8 +330,7 @@ Rustは環境用の構造体を作成し、 適切なトレイトを `impl` し�
 
 <!-- Now that we know that closures are traits, we already know how to accept and -->
 <!-- return closures: just like any other trait! -->
-クロージャが実際にはトレイトであることを学んだので、
-クロージャを引数としたり返り値としたりする方法を既に知っていることになります: 通常のトレイトと同様に行うのです!
+クロージャが実際にはトレイトであることを学んだので、クロージャを引数としたり返り値としたりする方法を既に知っていることになります: 通常のトレイトと同様に行うのです!
 
 <!-- This also means that we can choose static vs dynamic dispatch as well. First, -->
 <!-- let’s write a function which takes something callable, calls it, and returns -->
@@ -381,8 +379,7 @@ fn call_with_one<F>(some_closure: F) -> i32
 <!-- closure takes a `i32` as an argument and returns an `i32`, and so the generic -->
 <!-- bound we use is `Fn(i32) -> i32`. -->
 `Fn` がトレイトであるために、ジェネリックの境界として `Fn` を指定することができます。
-この場合はクロージャは `i32` を引数として取り、 `i32` を返します、そのため
-ジェネリックの境界として `Fn(i32) -> i32` を指定します。
+この場合はクロージャは `i32` を引数として取り、 `i32` を返します、そのためジェネリックの境界として `Fn(i32) -> i32` を指定します。
 
 <!-- There’s one other key point here: because we’re bounding a generic with a -->
 <!-- trait, this will get monomorphized, and therefore, we’ll be doing static -->
@@ -391,8 +388,8 @@ fn call_with_one<F>(some_closure: F) -> i32
 <!-- we can stack allocate our closure environment, and statically dispatch the -->
 <!-- call. This happens quite often with iterators and their adapters, which often -->
 <!-- take closures as arguments. -->
-キーポイントがほかにもあります: ジェネリックをトレイトで境界を指定したために、
-この関数は単相化され、静的ディスパッチをクロージャに対して行います。これはとても素敵です。
+キーポイントがほかにもあります: ジェネリックをトレイトで境界を指定したために、この関数は単相化され、静的ディスパッチをクロージャに対して行います。
+これはとても素敵です。
 多くの言語では、クロージャは常にヒープにアロケートされ、常に動的ディスパッチが行われます。
 Rustではスタックにクロージャの環境をアロケートし、呼び出しを静的ディスパッチすることができます。
 これは、しばしばクロージャを引数として取る、イテレータやそれらのアダプタにおいて頻繁に行われます。
@@ -415,7 +412,7 @@ assert_eq!(3, answer);
 <!-- Now we take a trait object, a `&Fn`. And we have to make a reference -->
 <!-- to our closure when we pass it to `call_with_one`, so we use `&||`. -->
 トレイトオブジェクト `&Fn` を引数にとります。
-また `call_with_one` にクロージャを渡すときに参照を利用するようにしました、
+また `call_with_one` にクロージャを渡すときに参照を利用するようにしました。
 そのため `&||` を利用しています。
 
 <!-- # Function pointers and closures -->
@@ -459,7 +456,8 @@ let answer = call_with_one(&add_one);
 <!-- first, it may seem strange, but we’ll figure it out. Here’s how you’d probably -->
 <!-- try to return a closure from a function: -->
 関数を用いたスタイルのコードでは、クロージャを返すことは非常によく見られます。
-もし、クロージャを返すことを試みた場合、エラーが発生します。これは一見奇妙に思われますが、理解することができます。
+もし、クロージャを返すことを試みた場合、エラーが発生します。
+これは一見奇妙に思われますが、理解することができます。
 以下は、関数からクロージャを返すことを試みた場合のコードです:
 
 ```rust,ignore
@@ -531,9 +529,10 @@ fn factory() -> &(Fn(i32) -> i32) {
 <!-- [elision](lifetimes.html#lifetime-elision) doesn’t kick in here. Then what -->
 <!-- choices do we have? Try `'static`: -->
 ふむ。これはリファレンスを利用したので、ライフタイムを指定する必要が有るためです。
-しかし、 `factory()` 関数は引数を何も取りません、
+しかし、 `factory()` 関数は引数を何も取りません。
 そのため [ライフタイムの省略](lifetimes.html#lifetime-elision) は実施されません。
-では、どのような選択肢が有るのでしょうか？ `'static` を試してみましょう:
+では、どのような選択肢が有るのでしょうか？
+`'static` を試してみましょう:
 
 ```rust,ignore
 fn factory() -> &'static (Fn(i32) -> i32) {
@@ -564,17 +563,16 @@ error: mismatched types:
 
 <!-- This error is letting us know that we don’t have a `&'static Fn(i32) -> i32`, -->
 <!-- we have a `[closure@<anon>:7:9: 7:20]`. Wait, what? -->
-このエラーは `&'static Fn(i32) -> i32` ではなく、
- `[closure@<anon>:7:9: 7:20]` を使ってしまっているということを伝えています。
-ちょっと待ってください、一体これはどういう意味でしょう？
+このエラーは `&'static Fn(i32) -> i32` ではなく、 `[closure@<anon>:7:9: 7:20]` を使ってしまっているということを伝えています。
+ちょっと待ってください。
+一体これはどういう意味でしょう？
 
 
 <!-- Because each closure generates its own environment `struct` and implementation -->
 <!-- of `Fn` and friends, these types are anonymous. They exist just solely for -->
 <!-- this closure. So Rust shows them as `closure@<anon>`, rather than some -->
 <!-- autogenerated name. -->
-それぞれのクロージャはそれぞれの環境用の `struct` を生成し、
-`Fn` やそれに準ずるものを実装するため、それぞれの型は匿名となります。
+それぞれのクロージャはそれぞれの環境用の `struct` を生成し、`Fn` やそれに準ずるものを実装するため、それぞれの型は匿名となります。
 それらの型はそれらのクロージャのためだけに存在します。
 そのためRustはそれらの型を自動生成された名前の代わりに `closure@<anon>` と表示します。
 
@@ -582,8 +580,7 @@ error: mismatched types:
 <!-- but what we are trying to return is not. Further, we cannot directly assign a -->
 <!-- `'static` lifetime to an object. So we'll take a different approach and return -->
 <!-- a ‘trait object’ by `Box`ing up the `Fn`. This _almost_ works: -->
-また、このエラーは返り値の型が参照であることを期待しているが、
-上のコードではそうなっていないということについても指摘しています。
+また、このエラーは返り値の型が参照であることを期待しているが、上のコードではそうなっていないということについても指摘しています。
 もうちょっというと、直接的に `'static` ライフタイムをオブジェクトに割り当てることはできません。
 そこで、`Fn` をボックス化することで「トレイトオブジェクト」を返すという方法を取ります。
 そうすると、動作するまであと一歩のところまで来ます:
@@ -620,10 +617,8 @@ Box::new(|x| x + num)
 <!-- and our closure is capturing an environment of garbage memory! With one last -->
 <!-- fix, we can make this work: -->
 以前説明したように、クロージャはその環境を借用します。
-今回の場合は、環境はスタックにアロケートされた `5` に束縛された `num` からできていることから、
-環境の借用はスタックフレームと同じライフタイムを持っています。
-そのため、もしこのクロージャを返り値とした場合、
-そのあと `factory()` 関数の処理は終了し、スタックフレームが取り除かれクロージャはゴミとなったメモリを参照することになります!
+今回の場合は、環境はスタックにアロケートされた `5` に束縛された `num` からできていることから、環境の借用はスタックフレームと同じライフタイムを持っています。
+そのため、もしこのクロージャを返り値とした場合、そのあと `factory()` 関数の処理は終了し、スタックフレームが取り除かれクロージャはゴミとなったメモリを参照することになります!
 上のコードに最後の修正を施すことによって動作させることができるようになります:
 
 

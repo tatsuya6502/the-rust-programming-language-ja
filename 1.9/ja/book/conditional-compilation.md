@@ -3,8 +3,7 @@
 
 <!-- Rust has a special attribute, `#[cfg]`, which allows you to compile code -->
 <!-- based on a flag passed to the compiler. It has two forms: -->
-Rustには `#[cfg]` という特別なアトリビュートがあり、
-コンパイラに渡されたフラグに合わせてコードをコンパイルすることを可能にします。
+Rustには `#[cfg]` という特別なアトリビュートがあり、コンパイラに渡されたフラグに合わせてコードをコンパイルすることを可能にします。
 `#[cfg]` アトリビュートは以下の2つの形式で利用することができます:
 
 ```rust
@@ -61,8 +60,7 @@ secure-password = ["bcrypt"]
 
 <!-- The sum of these `cfg` flags will determine which ones get activated, and -->
 <!-- therefore, which code gets compiled. Let’s take this code: -->
-渡されたすべての `cfg` フラグによってどのフラグが有効に成るか決定され、
-それによってどのコードがコンパイルされるかも決定されます。以下のコードを見てみましょう:
+渡されたすべての `cfg` フラグによってどのフラグが有効に成るか決定され、それによってどのコードがコンパイルされるかも決定されます。以下のコードを見てみましょう:
 
 ```rust
 #[cfg(feature = "foo")]
@@ -74,8 +72,7 @@ mod foo {
 <!-- feature="foo"` flag to `rustc`, and the output will have the `mod foo` in it. -->
 <!-- If we compile it with a regular `cargo build`, no extra flags get passed on, -->
 <!-- and so, no `foo` module will exist. -->
-もしこのコードを `cargo build --features "foo"` としてコンパイルを行うと、
-`--cfg features="foo"` が `rustc` に渡され、出力には `mod foo` が含まれます。
+もしこのコードを `cargo build --features "foo"` としてコンパイルを行うと、 `--cfg features="foo"` が `rustc` に渡され、出力には `mod foo` が含まれます。
 もし標準的な `cargo build` でコンパイルを行った場合、`rustc` に追加のフラグは渡されず `foo` モジュールは存在しない事になります。
 
 # cfg_attr
@@ -89,8 +86,7 @@ mod foo {
 ```
 
 <!-- Will be the same as `#[b]` if `a` is set by `cfg` attribute, and nothing otherwise. -->
-このようにすると、`cfg` アトリビュートによって `a` が有効になっている場合に限り `#[b]` と設定されている
-場合と同じ効果が得られます。
+このようにすると、`cfg` アトリビュートによって `a` が有効になっている場合に限り `#[b]` と設定されている場合と同じ効果が得られます。
 
 # cfg!
 

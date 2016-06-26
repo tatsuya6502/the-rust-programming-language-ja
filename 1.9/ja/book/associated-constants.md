@@ -21,7 +21,8 @@ fn main() {
 ```
 
 <!-- Any implementor of `Foo` will have to define `ID`. Without the definition: -->
-`Foo` を実装する場合、必ず `ID` を定義しなければなりません。もし以下のように定義がなかった場合
+`Foo` を実装する場合、必ず `ID` を定義しなければなりません。
+もし以下のように定義がなかった場合
 
 ```rust,ignore
 #![feature(associated_consts)]
@@ -70,11 +71,13 @@ fn main() {
 <!-- As you can see, when implementing `Foo`, you can leave it unimplemented, as -->
 <!-- with `i32`. It will then use the default value. But, as in `i64`, we can also -->
 <!-- add our own definition. -->
-上記の通り、 `Foo` トレイトを実装する際、 `i32` のように未実装のままにすることができます。この場合、既定値が使われます。一方 `i64` のように独自の定義を追加することもできます。
+上記の通り、 `Foo` トレイトを実装する際、 `i32` のように未実装のままにすることができます。
+この場合、既定値が使われます。一方 `i64` のように独自の定義を追加することもできます。
 
 <!-- Associated constants don’t have to be associated with a trait. An `impl` block -->
 <!-- for a `struct` or an `enum` works fine too: -->
-関連定数は必ずしもトレイトに関連付けられる必要はありません。 `struct` や `enum` の `impl` ブロックにおいても使うことができます。
+関連定数は必ずしもトレイトに関連付けられる必要はありません。
+`struct` や `enum` の `impl` ブロックにおいても使うことができます。
 
 ```rust
 #![feature(associated_consts)]

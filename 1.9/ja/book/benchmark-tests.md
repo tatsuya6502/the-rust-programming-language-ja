@@ -68,7 +68,7 @@ test result: ok. 0 passed; 0 failed; 1 ignored; 1 measured
 ベンチマークでないテストは無視されます。
 `cargo bench` が `cargo test` よりも時間がかかることにお気づきになったかもしれません。
 これは、Rustがベンチマークをかなりの回数繰り返し実行し、その結果の平均を取るためです。
-今回のコードでは非常に小さな処理しか行っていないために、 `1 ns/iter (+/- 0)` という結果を得ました、
+今回のコードでは非常に小さな処理しか行っていないために、 `1 ns/iter (+/- 0)` という結果を得ました。
 しかし、この結果は変動することがあるでしょう。
 
 <!-- Advice on writing benchmarks: -->
@@ -97,8 +97,7 @@ test result: ok. 0 passed; 0 failed; 1 ignored; 1 measured
 <!-- the benchmark is no longer benchmarking what one expects. For example, the -->
 <!-- compiler might recognize that some calculation has no external effects and -->
 <!-- remove it entirely. -->
-ベンチマークを書くときに気をつけなければならないその他の点は: 最適化を有効にしてコンパイルしたベンチマークは劇的に最適化され、
-もはや本来ベンチマークしたかったコードとは異なるという点です。
+ベンチマークを書くときに気をつけなければならないその他の点は: 最適化を有効にしてコンパイルしたベンチマークは劇的に最適化され、もはや本来ベンチマークしたかったコードとは異なるという点です。
 たとえば、コンパイラは幾つかの計算がなにも外部に影響を及ぼさないことを認識してそれらの計算を取り除くかもしれません。
 
 ```rust,ignore
@@ -116,7 +115,7 @@ fn bench_xor_1000_ints(b: &mut Bencher) {
 ```
 
 <!-- gives the following results -->
-このベンチマークは以下の様な結果となります
+このベンチマークは以下の様な結果となります。
 
 ```text
 running 1 test
@@ -131,8 +130,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured
 <!-- computation entirely. This could be done for the example above by adjusting the -->
 <!-- `b.iter` call to -->
 ベンチマークランナーはこの問題を避ける2つの手段を提供します。
-`iter` メソッドが受け取るクロージャは任意の値を返すことができ、
-オプティマイザに計算の結果が利用されていると考えさせ、その計算を取り除くことができないと保証することができます。
+`iter` メソッドが受け取るクロージャは任意の値を返すことができ、オプティマイザに計算の結果が利用されていると考えさせ、その計算を取り除くことができないと保証することができます。
 これは、上のコードにおいて `b.iter` の呼出を以下のようにすることで可能です:
 
 ```rust
@@ -148,9 +146,8 @@ b.iter(|| {
 <!-- Or, the other option is to call the generic `test::black_box` function, which -->
 <!-- is an opaque "black box" to the optimizer and so forces it to consider any -->
 <!-- argument as used. -->
-もう一つの方法としては、ジェネリックな `test::black_box` 関数を呼び出すという手段が有ります、
-`test::black_box` 関数はオプティマイザにとって不透明な「ブラックボックス」であり、
-オプティマイザに引数のどれもが利用されていると考えさせることができます。
+もう一つの方法としては、ジェネリックな `test::black_box` 関数を呼び出すという手段が有ります。
+`test::black_box` 関数はオプティマイザにとって不透明な「ブラックボックス」であり、オプティマイザに引数のどれもが利用されていると考えさせることができます。
 
 ```rust
 #![feature(test)]
@@ -175,7 +172,7 @@ b.iter(|| {
 大きな値は、オーバーヘッドを減らすために間接的に渡すことができます(例: `black_box(&huge_struct)`)。
 
 <!-- Performing either of the above changes gives the following benchmarking results -->
-上記のどちらかの変更を施すことでベンチマークの結果は以下のようになります
+上記のどちらかの変更を施すことでベンチマークの結果は以下のようになります。
 
 ```text
 running 1 test

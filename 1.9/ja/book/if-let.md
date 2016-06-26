@@ -3,13 +3,11 @@
 
 <!-- `if let` allows you to combine `if` and `let` together to reduce the overhead -->
 <!-- of certain kinds of pattern matches. -->
-`if let` によって`if` と `let` を一体化して用いることが可能となり、
-ある種のパターンマッチに伴うオーバーヘッドを削減することができます。
+`if let` によって`if` と `let` を一体化して用いることが可能となり、ある種のパターンマッチに伴うオーバーヘッドを削減することができます。
 
 <!-- For example, let’s say we have some sort of `Option<T>`. We want to call a function -->
 <!-- on it if it’s `Some<T>`, but do nothing if it’s `None`. That looks like this: -->
-例えば今、 `Option<T>` 型の値が有るとして、
-この値が `Some<T>` であるならば何らかの関数を呼び出し、`None` ならば何もしたくないとしましょう
+例えば今、 `Option<T>` 型の値が有るとして、この値が `Some<T>` であるならば何らかの関数を呼び出し、`None` ならば何もしたくないとしましょう。
 そのような処理は例えば以下のように書けるでしょう:
 
 ```rust
@@ -48,8 +46,8 @@ if let Some(x) = option {
 <!-- If a [pattern][patterns] matches successfully, it binds any appropriate parts of -->
 <!-- the value to the identifiers in the pattern, then evaluates the expression. If -->
 <!-- the pattern doesn’t match, nothing happens. -->
-もし [パターン][patterns] マッチが成功した場合、パターンに含まれる変数に適切に値が割り当てられ、
-式が評価されます。もしパターンマッチが失敗した場合には何も起こりません。
+もし [パターン][patterns] マッチが成功した場合、パターンに含まれる変数に適切に値が割り当てられ、式が評価されます。
+もしパターンマッチが失敗した場合には何も起こりません。
 
 <!-- If you want to do something else when the pattern does not match, you can -->
 <!-- use `else`: -->

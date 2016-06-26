@@ -15,13 +15,13 @@
 <!-- mechanics of defining and loading a plugin. -->
 プラグインとは `rustc` に拡張を登録するための、指定された *登録用* 関数を持った動的ライブラリのクレートです。
 他のクレートはこれらのプラグインを `#![plugin(...)]` クレートアトリビュートでロード出来ます。
-プラグインの定義、ロードの仕組みについて詳しくは[`rustc_plugin`](../rustc_plugin/index.html)を参照して下さい。
+プラグインの定義、ロードの仕組みについて詳しくは [`rustc_plugin`](../rustc_plugin/index.html) を参照して下さい。
 
 <!-- If present, arguments passed as `#![plugin(foo(... args ...))]` are not -->
 <!-- interpreted by rustc itself.  They are provided to the plugin through the -->
 <!-- `Registry`'s [`args` method](../rustc_plugin/registry/struct.Registry.html#method.args). -->
 `#![plugin(foo(... args ...))]` のように渡された引数があるなら、それらはrustc自身によっては解釈されません。
-`Registry` の[`args` メソッド](../rustc_plugin/registry/struct.Registry.html#method.args)を通じてプラグインに渡されます。
+`Registry` の [`args` メソッド](../rustc_plugin/registry/struct.Registry.html#method.args) を通じてプラグインに渡されます。
 
 <!-- In the vast majority of cases, a plugin should *only* be used through -->
 <!-- `#![plugin]` and not through an `extern crate` item.  Linking a plugin would -->
@@ -46,13 +46,14 @@
 <!-- macros](macros.html), but the expansion is performed by arbitrary Rust -->
 <!-- code that manipulates [syntax trees](../syntax/ast/index.html) at -->
 <!-- compile time. -->
-プラグインはRustの構文を様々な方法で拡張出来ます。構文拡張の1つに手続的マクロがあります。
-これらは[普通のマクロ](macros.html)と同じように実行されますが展開は任意の[構文木](../syntax/ast/index.html)をコンパイル時に操作するRustのコードが行います。
+プラグインはRustの構文を様々な方法で拡張出来ます。
+構文拡張の1つに手続的マクロがあります。
+これらは [普通のマクロ](macros.html) と同じように実行されますが展開は任意の [構文木](../syntax/ast/index.html) をコンパイル時に操作するRustのコードが行います。
 
 <!-- Let's write a plugin -->
 <!-- [`roman_numerals.rs`](https://github.com/rust-lang/rust/tree/master/src/test/auxiliary/roman_numerals.rs) -->
 <!-- that implements Roman numeral integer literals. -->
-ローマ数字リテラルを実装する[`roman_numerals.rs`](https://github.com/rust-lang/rust/tree/master/src/test/auxiliary/roman_numerals.rs)を書いてみましょう。
+ローマ数字リテラルを実装する [`roman_numerals.rs`](https://github.com/rust-lang/rust/tree/master/src/test/auxiliary/roman_numerals.rs) を書いてみましょう。
 
 
 ```ignore
@@ -150,19 +151,19 @@ fn main() {
 <!-- enum](https://doc.rust-lang.org/syntax/ext/base/enum.SyntaxExtension.html).  For -->
 <!-- a more involved macro example, see -->
 <!-- [`regex_macros`](https://github.com/rust-lang/regex/blob/master/regex_macros/src/lib.rs). -->
-手続き的マクロに加えて[`derive`](../reference.html#derive)ライクなアトリビュートや他の拡張を書けます。
-[`Registry::register_syntax_extension`](../rustc_plugin/registry/struct.Registry.html#method.register_syntax_extension)や[`SyntaxExtension` 列挙型](https://doc.rust-lang.org/syntax/ext/base/enum.SyntaxExtension.html)を参照して下さい。
-もっと複雑なマクロの例は[`regex_macros`](https://github.com/rust-lang/regex/blob/master/regex_macros/src/lib.rs)を参照して下さい。
+手続き的マクロに加えて [`derive`](../reference.html#derive) ライクなアトリビュートや他の拡張を書けます。
+[`Registry::register_syntax_extension`](../rustc_plugin/registry/struct.Registry.html#method.register_syntax_extension) や [`SyntaxExtension` 列挙型](https://doc.rust-lang.org/syntax/ext/base/enum.SyntaxExtension.html) を参照して下さい。
+もっと複雑なマクロの例は [`regex_macros`](https://github.com/rust-lang/regex/blob/master/regex_macros/src/lib.rs) を参照して下さい。
 
 <!-- ## Tips and tricks -->
 ## ヒントと小技
 
 <!-- Some of the [macro debugging tips](macros.html#debugging-macro-code) are applicable. -->
-[マクロデバッグのヒント](macros.html#debugging-macro-code)のいくつかが使えます。
+[マクロデバッグのヒント](macros.html#debugging-macro-code) のいくつかが使えます。
 
 <!-- You can use [`syntax::parse`](../syntax/parse/index.html) to turn token trees into -->
 <!-- higher-level syntax elements like expressions: -->
-[`syntax::parse`](../syntax/parse/index.html)を使うことでトークン木を式などの高レベルな構文要素に変換出来ます。
+[`syntax::parse`](../syntax/parse/index.html) を使うことでトークン木を式などの高レベルな構文要素に変換出来ます。
 
 ```ignore
 fn expand_foo(cx: &mut ExtCtxt, sp: Span, args: &[TokenTree])
@@ -176,14 +177,14 @@ fn expand_foo(cx: &mut ExtCtxt, sp: Span, args: &[TokenTree])
 <!-- Looking through [`libsyntax` parser -->
 <!-- code](https://github.com/rust-lang/rust/blob/master/src/libsyntax/parse/parser.rs) -->
 <!-- will give you a feel for how the parsing infrastructure works. -->
-[`libsyntax` のパーサのコード](https://github.com/rust-lang/rust/blob/master/src/libsyntax/parse/parser.rs)を見るとパーサの基盤がどのように機能しているかを感られるでしょう。
+[`libsyntax` のパーサのコード](https://github.com/rust-lang/rust/blob/master/src/libsyntax/parse/parser.rs) を見るとパーサの基盤がどのように機能しているかを感じられるでしょう。
 
 <!-- Keep the [`Span`s](../syntax/codemap/struct.Span.html) of -->
 <!-- everything you parse, for better error reporting. You can wrap -->
 <!-- [`Spanned`](../syntax/codemap/struct.Spanned.html) around -->
 <!-- your custom data structures. -->
-パースしたものの[`Span`](../syntax/codemap/struct.Span.html)は良いエラー報告のために保持しておきましょう。
-自分で作ったデータ構造に対しても[`Spanned`](../syntax/codemap/struct.Spanned.html)でラップ出来ます。
+パースしたものの [`Span`](../syntax/codemap/struct.Span.html) は良いエラー報告のために保持しておきましょう。
+自分で作ったデータ構造に対しても [`Spanned`](../syntax/codemap/struct.Spanned.html) でラップ出来ます。
 
 <!-- Calling -->
 <!-- [`ExtCtxt::span_fatal`](../syntax/ext/base/struct.ExtCtxt.html#method.span_fatal) -->
@@ -192,8 +193,8 @@ fn expand_foo(cx: &mut ExtCtxt, sp: Span, args: &[TokenTree])
 <!-- and return -->
 <!-- [`DummyResult`](../syntax/ext/base/struct.DummyResult.html), -->
 <!-- so that the compiler can continue and find further errors. -->
-[`ExtCtxt::span_fatal`](../syntax/ext/base/struct.ExtCtxt.html#method.span_fatal)を呼ぶとコンパイルは即座に中断されます。
-[`ExtCtxt::span_err`](../syntax/ext/base/struct.ExtCtxt.html#method.span_err)を呼んで[`DummyResult`](../syntax/ext/base/struct.DummyResult.html)を返せばコンパイラはさらなるエラーを発見できるのでその方が良いでしょう。
+[`ExtCtxt::span_fatal`](../syntax/ext/base/struct.ExtCtxt.html#method.span_fatal) を呼ぶとコンパイルは即座に中断されます。
+[`ExtCtxt::span_err`](../syntax/ext/base/struct.ExtCtxt.html#method.span_err) を呼んで [`DummyResult`](../syntax/ext/base/struct.DummyResult.html) を返せばコンパイラはさらなるエラーを発見できるのでその方が良いでしょう。
 
 <!-- To print syntax fragments for debugging, you can use -->
 <!-- [`span_note`](../syntax/ext/base/struct.ExtCtxt.html#method.span_note) together -->
@@ -207,8 +208,8 @@ fn expand_foo(cx: &mut ExtCtxt, sp: Span, args: &[TokenTree])
 <!-- [quasiquote macros](../syntax/ext/quote/index.html).  They are undocumented and -->
 <!-- very rough around the edges.  However, the implementation may be a good -->
 <!-- starting point for an improved quasiquote as an ordinary plugin library. -->
-上記の例では[`AstBuilder::expr_usize`](../syntax/ext/build/trait.AstBuilder.html#tymethod.expr_usize)を使って整数リテラルを作りました。
-`AstBuilder` トレイトの代替として `libsyntax` は[準クォート ](../syntax/ext/quote/index.html)マクロを提供しています。
+上記の例では [`AstBuilder::expr_usize`](../syntax/ext/build/trait.AstBuilder.html#tymethod.expr_usize) を使って整数リテラルを作りました。
+`AstBuilder` トレイトの代替として `libsyntax` は [準クォート ](../syntax/ext/quote/index.html) マクロを提供しています。
 ドキュメントがない上に荒削りです。しかしながらその実装は改良版の普通のプラグインライブラリのとっかかりにはほど良いでしょう。
 
 <!-- # Lint plugins -->
@@ -218,7 +219,7 @@ fn expand_foo(cx: &mut ExtCtxt, sp: Span, args: &[TokenTree])
 <!-- infrastructure](../reference.html#lint-check-attributes) with additional checks for -->
 <!-- code style, safety, etc. Now let's write a plugin [`lint_plugin_test.rs`](https://github.com/rust-lang/rust/blob/master/src/test/auxiliary/lint_plugin_test.rs) -->
 <!-- that warns about any item named `lintme`. -->
-プラグインによって[Rustの構文チェック基盤](../reference.html#lint-check-attributes)を拡張してコーディングスタイル、安全性などを検査するようにできます。では[`lint_plugin_test.rs`](https://github.com/rust-lang/rust/blob/master/src/test/auxiliary/lint_plugin_test.rs)プラグインを書いてみましょう。
+プラグインによって [Rustの構文チェック基盤](../reference.html#lint-check-attributes) を拡張してコーディングスタイル、安全性などを検査するようにできます。では [`lint_plugin_test.rs`](https://github.com/rust-lang/rust/blob/master/src/test/auxiliary/lint_plugin_test.rs) プラグインを書いてみましょう。
 `lintme` という名前のアイテムについて警告を出すものです。
 
 
@@ -286,7 +287,7 @@ foo.rs:4 fn lintme() { }
 
 <!-- * one or more `declare_lint!` invocations, which define static -->
 <!--   [`Lint`](../rustc/lint/struct.Lint.html) structs; -->
-* 1回以上の `declare_lint!` の実行。それによって[`Lint`](../rustc/lint/struct.Lint.html)構造体が定義されます。
+* 1回以上の `declare_lint!` の実行。それによって [`Lint`](../rustc/lint/struct.Lint.html) 構造体が定義されます。
 
 <!-- * a struct holding any state needed by the lint pass (here, none); -->
 * 構文チェックパスで必要となる状態を保持する構造体（ここでは何もない）
@@ -295,7 +296,7 @@ foo.rs:4 fn lintme() { }
 <!--   implementation defining how to check each syntax element. A single -->
 <!--   `LintPass` may call `span_lint` for several different `Lint`s, but should -->
 <!--   register them all through the `get_lints` method. -->
-* それぞれの構文要素をどうやってチェックするかを定めた[`LintPass`](../rustc/lint/trait.LintPass.html)の実装。
+* それぞれの構文要素をどうやってチェックするかを定めた [`LintPass`](../rustc/lint/trait.LintPass.html) の実装。
   単一の `LintPass` は複数回 `span_lint` をいくつかの異なる `Lint` に対して呼ぶかもしれませんが、全て `get_lints`を通じて登録すべきです。
 
 <!-- Lint passes are syntax traversals, but they run at a late stage of compilation -->
@@ -303,13 +304,14 @@ foo.rs:4 fn lintme() { }
 <!-- lints](https://github.com/rust-lang/rust/blob/master/src/librustc/lint/builtin.rs) -->
 <!-- mostly use the same infrastructure as lint plugins, and provide examples of how -->
 <!-- to access type information. -->
-構文チェックパスは構文巡回ですが、型情報が得られる、コンパイルの終盤で走ります。 `rustc` の[組み込み構文チェック](https://github.com/rust-lang/rust/blob/master/src/librustc/lint/builtin.rs)は殆どプラグインと同じ基盤を使っており、どうやって型情報にアクセスするかの例になっています。
+構文チェックパスは構文巡回ですが、型情報が得られる、コンパイルの終盤で走ります。
+`rustc` の [組み込み構文チェック](https://github.com/rust-lang/rust/blob/master/src/librustc/lint/builtin.rs) は殆どプラグインと同じ基盤を使っており、どうやって型情報にアクセスするかの例になっています。
 
 <!-- Lints defined by plugins are controlled by the usual [attributes and compiler -->
 <!-- flags](../reference.html#lint-check-attributes), e.g. `#[allow(test_lint)]` or -->
 <!-- `-A test-lint`. These identifiers are derived from the first argument to -->
 <!-- `declare_lint!`, with appropriate case and punctuation conversion. -->
-プラグインによって定義されたLintは普通の[アトリビュートとコンパイラフラグ](../reference.html#lint-check-attributes)例えば `#[allow(test_lint)]` や `-A test-lint` によってコントロールされます。
+プラグインによって定義されたLintは普通の [アトリビュートとコンパイラフラグ](../reference.html#lint-check-attributes) 例えば `#[allow(test_lint)]` や `-A test-lint` によってコントロールされます。
 これらの識別子は `declare_lint!` の第一引数に由来しており、適切な名前に変換されます。
 
 <!-- You can run `rustc -W help foo.rs` to see a list of lints known to `rustc`, -->

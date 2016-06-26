@@ -104,7 +104,8 @@ let y = x;
 <!--which is incremented each time the `Rc` is cloned, and decremented each time one of the `Rc`s goes-->
 <!--out of scope. The main responsibility of `Rc<T>` is to ensure that destructors are called for shared-->
 <!--data.-->
-内部的には、それは共有「参照カウント」（「refcount」とも呼ばれます）を持っています。それは、 `Rc` がクローンされる度に1増加し、 `Rc` がスコープから外れる度に1減少します。
+内部的には、それは共有「参照カウント」（「refcount」とも呼ばれます）を持っています。
+それは、 `Rc` がクローンされる度に1増加し、 `Rc` がスコープから外れる度に1減少します。
 `Rc<T>` の主な役割は、共有データのデストラクタが呼び出されることを保証することです。
 
 <!--The internal data here is immutable, and if a cycle of references is created, the data will be-->
@@ -129,7 +130,8 @@ let y = x;
 
 <!--This pointer is _not_ thread safe, and Rust will not let it be sent or shared with other threads.-->
 <!--This lets one avoid the cost of atomics in situations where they are unnecessary.-->
-このポインタはスレッドセーフでは _ありません_ 。Rustはそれを他のスレッドに対して送ったり共有したりはさせません。
+このポインタはスレッドセーフでは _ありません_ 。
+Rustはそれを他のスレッドに対して送ったり共有したりはさせません。
 これによって、それらが不要な状況でのアトミック性のためのコストを省くことができます。
 
 <!--There is a sister smart pointer to this one, `Weak<T>`. This is a non-owning, but also non-borrowed,-->
@@ -139,7 +141,8 @@ let y = x;
 <!--data structures and other things.-->
 これの姉妹に当たるスマートポインタとして、 `Weak<T>` があります。
 これは所有せず、借用もしないスマートポインタです。
-それは `&T` とも似ていますが、ライフタイムによる制約がありません。 `Weak<T>` は永遠に有効であり続けることができます。
+それは `&T` とも似ていますが、ライフタイムによる制約がありません。
+`Weak<T>` は永遠に有効であり続けることができます。
 しかし、これは所有する `Rc` のライフタイムを超えて有効である可能性があるため、中身のデータへのアクセスが失敗し、 `None` を返すという可能性があります。
 これは循環するデータ構造やその他のものについて便利です。
 
@@ -148,8 +151,8 @@ let y = x;
 
 <!--As far as memory goes, `Rc<T>` is a single allocation, though it will allocate two extra words (i.e.-->
 <!--two `usize` values) as compared to a regular `Box<T>` (for "strong" and "weak" refcounts).-->
-メモリに関する限り、 `Rc<T>` の割当ては1回です。ただし、普通の `Box<T>` と比べると
-（「強い」参照カウントと「弱い」参照カウントのために）、2ワード余分（つまり、2つの `usize` の値）に割り当てます。
+メモリに関する限り、 `Rc<T>` の割当ては1回です。
+ただし、普通の `Box<T>` と比べると（「強い」参照カウントと「弱い」参照カウントのために）、2ワード余分（つまり、2つの `usize` の値）に割り当てます。
 
 <!--`Rc<T>` has the computational cost of incrementing/decrementing the refcount whenever it is cloned-->
 <!--or goes out of scope respectively. Note that a clone will not do a deep copy, rather it will simply-->
@@ -180,7 +183,8 @@ let y = x;
 <!--Since the compiler knows that all the data owned by the contained value is on the stack, there's-->
 <!--no worry of leaking any data behind references (or worse!) by simply replacing the data.-->
 [`Cell<T>`][cell] はゼロコストで内的ミュータビリティを提供するものですが、 `Copy` 型のためだけのものです。
-コンパイラは含まれている値によって所有されている全てのデータがスタック上にあることを認識しています。そのため、単純にデータが置き換えられることによって参照先のデータがメモリリークを起こす（又はもっと悪いことも!）心配はありません。
+コンパイラは含まれている値によって所有されている全てのデータがスタック上にあることを認識しています。
+そのため、単純にデータが置き換えられることによって参照先のデータがメモリリークを起こす（又はもっと悪いことも!）心配はありません。
 
 <!--It is still possible to violate your own invariants using this wrapper, so be careful when using it.-->
 <!--If a field is wrapped in `Cell`, it's a nice indicator that the chunk of data is mutable and may not-->
@@ -226,7 +230,8 @@ println!("{}", x);
 <!--unnecessary. However, this also relaxes the guarantees that the restriction provides; so if your-->
 <!--invariants depend on data stored within `Cell`, you should be careful.-->
 これは「ミュータブルなエイリアスはない」という制約を、それが不要な場所において緩和します。
-しかし、これはその制約が提供する保証をも緩和してしまいます。もし不変条件が `Cell` に保存されているデータに依存しているのであれば、注意すべきです。
+しかし、これはその制約が提供する保証をも緩和してしまいます。
+もし不変条件が `Cell` に保存されているデータに依存しているのであれば、注意すべきです。
 
 <!--This is useful for mutating primitives and other `Copy` types when there is no easy way of-->
 <!--doing it in line with the static rules of `&` and `&mut`.-->
@@ -242,7 +247,9 @@ println!("{}", x);
 <!--There is no runtime cost to using `Cell<T>`, however if you are using it to wrap larger (`Copy`)-->
 <!--structs, it might be worthwhile to instead wrap individual fields in `Cell<T>` since each write is-->
 <!--otherwise a full copy of the struct.-->
-`Cell<T>` の使用に実行時のコストは掛かりません。ただし、もしそれを大きな（ `Copy` の）構造体をラップするために使っているのであれば、代わりに個々のフィールドを `Cell<T>` でラップする方がよいかもしれません。そうしなければ、各書込みが構造体の完全コピーを発生させることになるからです。
+`Cell<T>` の使用に実行時のコストは掛かりません。
+ただし、もしそれを大きな（ `Copy` の）構造体をラップするために使っているのであれば、代わりに個々のフィールドを `Cell<T>` でラップする方がよいかもしれません。
+そうしなければ、各書込みが構造体の完全コピーを発生させることになるからです。
 
 ## `RefCell<T>`
 
@@ -257,7 +264,8 @@ println!("{}", x);
 <!--any other borrows active when a mutable borrow is active. If the programmer attempts to make such a-->
 <!--borrow, the thread will panic.-->
 その代わり、それには実行時のコストが掛かります。
-`RefCell<T>` は読み書きロックパターンを実行時に（シングルスレッドのミューテックスのように）強制します。この点が、それをコンパイル時に行う `&T` や `&mut T` とは異なります。
+`RefCell<T>` は読み書きロックパターンを実行時に（シングルスレッドのミューテックスのように）強制します。
+この点が、それをコンパイル時に行う `&T` や `&mut T` とは異なります。
 これは `borrow()` 関数と `borrow_mut()` 関数によって行われます。それらは内部の参照カウントを変更し、それぞれイミュータブル、ミュータブルに参照を外すことのできるスマートポインタを戻します。
 参照カウントはスマートポインタがスコープから外れたときに元に戻されます。
 このシステムによって、ミュータブルな借用が有効なときには決してその他の借用が有効にならないということを動的に保証することができます。
@@ -297,13 +305,15 @@ let x = RefCell::new(vec![1,2,3,4]);
 それらは（初期化の直後ではなく生成の過程で）一度だけ変更されるか、又はきれいに分離された場所で数回変更されます。
 しかし、この構造体はあらゆる場所で全般的に使われているので、ミュータブルなポインタとイミュータブルなポインタとをジャグリング的に扱うのは難しく（あるいは不可能で）、おそらく拡張の困難な `&` ポインタのスープになってしまいます。
 一方、 `RefCell` はそれらにアクセスするための（ゼロコストではありませんが）低コストの方法です。
-将来、もし誰かが既に借用されたセルを変更しようとするコードを追加すれば、それは（普通は確定的に）パニックを引き起こすでしょう。これは、その違反した借用まで遡り得ます。
+将来、もし誰かが既に借用されたセルを変更しようとするコードを追加すれば、それは（普通は確定的に）パニックを引き起こすでしょう。
+これは、その違反した借用まで遡り得ます。
 
 <!--Similarly, in Servo's DOM there is a lot of mutation, most of which is local to a DOM type, but some-->
 <!--of which crisscrosses the DOM and modifies various things. Using `RefCell` and `Cell` to guard all-->
 <!--mutation lets us avoid worrying about mutability everywhere, and it simultaneously highlights the-->
 <!--places where mutation is _actually_ happening.-->
-同様に、ServoのDOMではたくさんの変更が行われるようになっていて、そのほとんどはDOM型にローカルです。しかし、複数のDOMに縦横無尽にまたがり、様々なものを変更するものもあります。
+同様に、ServoのDOMではたくさんの変更が行われるようになっていて、そのほとんどはDOM型にローカルです。
+しかし、複数のDOMに縦横無尽にまたがり、様々なものを変更するものもあります。
 全ての変更をガードするために `RefCell` と `Cell` を使うことで、あらゆる場所でのミュータビリティについて心配する必要がなくなり、それは同時に、変更が _実際に_ 起こっている場所を強調してくれます。
 
 <!--Note that `RefCell` should be avoided if a mostly simple solution is possible with `&` pointers.-->
@@ -373,7 +383,9 @@ let x = RefCell::new(vec![1,2,3,4]);
 C++の `shared_ptr` は `Arc` と似ていますが、C++の場合、中身のデータは常にミュータブルです。
 C++と同じセマンティクスで使うためには、 `Arc<Mutex<T>>` 、 `Arc<RwLock<T>>` 、 `Arc<UnsafeCell<T>>` を使うべきです [^4] （ `UnsafeCell<T>` はどんなデータでも持つことができ、実行時のコストも掛かりませんが、それにアクセスするためには `unsafe` ブロックが必要というセル型です）。
 最後のものは、その使用がメモリをアンセーフにしないことを確信している場合にだけ使うべきです。
-次のことを覚えましょう。構造体に書き込むのはアトミックな作業ではなく、`vec.push()`のような多くの関数は内部でメモリの再割当てを行い、アンセーフな挙動を引き起こす可能性があります。そのため単純な操作であるということだけでは `UnsafeCall` を正当化するには十分ではありません。
+次のことを覚えましょう。
+構造体に書き込むのはアトミックな作業ではなく、`vec.push()`のような多くの関数は内部でメモリの再割当てを行い、アンセーフな挙動を引き起こす可能性があります。
+そのため単純な操作であるということだけでは `UnsafeCall` を正当化するには十分ではありません。
 
 <!--[^4]: `Arc<UnsafeCell<T>>` actually won't compile since `UnsafeCell<T>` isn't `Send` or `Sync`, but we can wrap it in a type and implement `Send`/`Sync` for it manually to get `Arc<Wrapper<T>>` where `Wrapper` is `struct Wrapper<T>(UnsafeCell<T>)`.-->
 [^4]: `Arc<UnsafeCell<T>>` は `Send` や `Sync` ではないため、実際にはコンパイルできません。しかし、 `Arc<Wrapper<T>>` を得るために、手動でそれを `Send` と `Sync` を実装した型でラップすることができます。ここでの `Wrapper` は `struct Wrapper<T>(UnsafeCell<T>)` です。
@@ -405,7 +417,8 @@ C++と同じセマンティクスで使うためには、 `Arc<Mutex<T>>` 、 `A
 <!--until a lock can be acquired, and then a guard will be returned. This guard can be used to access-->
 <!--the inner data (mutably), and the lock will be released when the guard goes out of scope.-->
 [`Mutex<T>`][mutex] と [`RwLock<T>`][rwlock] はRAIIガード（ガードとは、ロックのようにそれらのデストラクタが呼び出されるまである状態を保持するオブジェクトのことです）による相互排他を提供します。
-それらの両方とも、その `lock()` を呼び出すまでミューテックスは不透明です。その時点で、スレッドはロックが得られ、ガードが戻されるまでブロックします。
+それらの両方とも、その `lock()` を呼び出すまでミューテックスは不透明です。
+その時点で、スレッドはロックが得られ、ガードが戻されるまでブロックします。
 このガードを使うことで、中身のデータに（ミュータブルに）アクセスできるようになり、ロックはガードがスコープから外れたときに解放されます。
 
 ```rust,ignore
@@ -424,7 +437,8 @@ C++と同じセマンティクスで使うためには、 `Arc<Mutex<T>>` 、 `A
 <!--Writers must obtain a "write lock" which can only be obtained when all readers have gone out of-->
 <!--scope.-->
 `RwLock`には複数の読込みを効率化するという追加の利点があります。
-それはライタのない限り常に、共有されたデータに対する複数のリーダを安全に持つことができます。そして、`RwLock`によってリーダは「読込みロック」を取得できます。
+それはライタのない限り常に、共有されたデータに対する複数のリーダを安全に持つことができます。
+そして、`RwLock`によってリーダは「読込みロック」を取得できます。
 このようなロックは並行に取得することができ、参照カウントによって追跡することができます。
 ライタは「書込みロック」を取得する必要があります。「書込みロック」はすべてのリーダがスコープから外れたときにだけ取得できます。
 
@@ -442,7 +456,8 @@ C++と同じセマンティクスで使うためには、 `Arc<Mutex<T>>` 、 `A
 <!--These use internal atomic-like types to maintain the locks, which are pretty costly (they can block-->
 <!--all memory reads across processors till they're done). Waiting on these locks can also be slow when-->
 <!--there's a lot of concurrent access happening.-->
-それらはロックを保持するために内部でアトミック的な型を使います。それにはかなりコストが掛かります（それらは仕事が終わるまで、プロセッサ中のメモリ読込み全てをブロックする可能性があります）。
+それらはロックを保持するために内部でアトミック的な型を使います。
+それにはかなりコストが掛かります（それらは仕事が終わるまで、プロセッサ中のメモリ読込み全てをブロックする可能性があります）。
 たくさんの並行なアクセスが起こる場合には、それらのロックを待つことが遅くなる可能性があります。
 
 [rwlock]: ../std/sync/struct.RwLock.html
@@ -467,7 +482,9 @@ Rustのコードを読むときに一般的な悩みは、 `Rc<RefCell<Vec<T>>>`
 <!--`RefCell<T>` inside to get dynamically verified shared mutability. Now we have shared mutable data,-->
 <!--but it's shared in a way that there can only be one mutator (and no readers) or multiple readers.-->
 例えば、 `Rc<RefCell<T>>` はそのような合成の1つです。
-`Rc<T>` そのものはミュータブルに参照を外すことができません。 `Rc<T>` は共有を提供し、共有されたミュータビリティはアンセーフな挙動に繋がる可能性があります。そのため、動的に証明された共有されたミュータビリティを得るために、 `RefCell<T>` を中に入れます。
+`Rc<T>` そのものはミュータブルに参照を外すことができません。
+`Rc<T>` は共有を提供し、共有されたミュータビリティはアンセーフな挙動に繋がる可能性があります。
+そのため、動的に証明された共有されたミュータビリティを得るために、 `RefCell<T>` を中に入れます。
 これで共有されたミュータブルなデータを持つことになりますが、それは（リーダはなしで）ライタが1つだけ、又はリーダが複数という方法で共有することになります。
 
 <!--Now, we can take this a step further, and have `Rc<RefCell<Vec<T>>>` or `Rc<Vec<RefCell<T>>>`. These-->
@@ -495,7 +512,8 @@ Rustのコードを読むときに一般的な悩みは、 `Rc<RefCell<Vec<T>>>`
 
 <!--In concurrent programs, we have a similar situation with `Arc<Mutex<T>>`, which provides shared-->
 <!--mutability and ownership.-->
-並行プログラムでは、 `Arc<Mutex<T>>` と似た状況に置かれます。それは共有されたミュータビリティと所有権を提供します。
+並行プログラムでは、 `Arc<Mutex<T>>` と似た状況に置かれます。
+それは共有されたミュータビリティと所有権を提供します。
 
 <!--When reading code that uses these, go in step by step and look at the guarantees/costs provided.-->
 それらを使ったコードを読むときには、1行1行進み、提供される保証とコストを見ましょう。
@@ -504,9 +522,9 @@ Rustのコードを読むときに一般的な悩みは、 `Rc<RefCell<Vec<T>>>`
 <!--which point of the composition we need them. For example, if there is a choice between-->
 <!--`Vec<RefCell<T>>` and `RefCell<Vec<T>>`, we should figure out the tradeoffs as done above and pick-->
 <!--one.-->
-合成された型を選択するときには、その逆に考えなければなりません。必要とする保証が何であるか、必要とする合成がどの点にあるのかを理解しましょう。
+合成された型を選択するときには、その逆に考えなければなりません。
+必要とする保証が何であるか、必要とする合成がどの点にあるのかを理解しましょう。
 例えば、もし `Vec<RefCell<T>>` と `RefCell<Vec<T>>` のどちらかを選ぶのであれば、前の方で行ったようにトレードオフを理解し、選ばなければなりません。
 
 <!--[^3]: `&[T]` and `&mut [T]` are _slices_; they consist of a pointer and a length and can refer to a portion of a vector or array. `&mut [T]` can have its elements mutated, however its length cannot be touched.-->
-[^3]: `&[T]` と `&mut [T]` は _スライス_ です。それらはポインタと長さを持ち、ベクタや配列の一部を参照することができます。
-`&mut [T]` ではその要素を変更できますが、その長さは変更することができません。
+[^3]: `&[T]` と `&mut [T]` は _スライス_ です。それらはポインタと長さを持ち、ベクタや配列の一部を参照することができます。 `&mut [T]` ではその要素を変更できますが、その長さは変更することができません。

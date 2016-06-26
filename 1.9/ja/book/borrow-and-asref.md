@@ -3,7 +3,8 @@
 
 <!-- The [`Borrow`][borrow] and [`AsRef`][asref] traits are very similar, but -->
 <!-- different. Here’s a quick refresher on what these two traits mean. -->
-[`Borrow`][borrow] トレイトと [`AsRef`][asref] トレイトはとてもよく似ていますが違うものです。ここでは2つのトレイトの意味を簡単に説明します。
+[`Borrow`][borrow] トレイトと [`AsRef`][asref] トレイトはとてもよく似ていますが違うものです。
+ここでは2つのトレイトの意味を簡単に説明します。
 
 [borrow]: ../std/borrow/trait.Borrow.html
 [asref]: ../std/convert/trait.AsRef.html
@@ -29,7 +30,8 @@ fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
 
 <!-- This signature is pretty complicated. The `K` parameter is what we’re interested -->
 <!-- in here. It refers to a parameter of the `HashMap` itself: -->
-このシグネチャは少し複雑です。`K` パラメータに注目してください。これは以下のように `HashMap` 自身のパラメータになっています。
+このシグネチャは少し複雑です。`K` パラメータに注目してください。
+これは以下のように `HashMap` 自身のパラメータになっています。
 
 ```rust,ignore
 struct HashMap<K, V, S = RandomState> {
@@ -39,7 +41,9 @@ struct HashMap<K, V, S = RandomState> {
 <!-- the signature of `get()` again, we can use `get()` when the key implements -->
 <!-- `Borrow<Q>`. That way, we can make a `HashMap` which uses `String` keys, -->
 <!-- but use `&str`s when we’re searching: -->
-`K` パラメータは `HashMap` の「キー」を表す型です。ここで再び `get()` のシグネチャを見ると、キーが `Borrow<Q>` を実装しているときに `get()` を使えることが分かります。そのため、以下のように `String` をキーとした `HashMap` を検索するときに `&str` を使うことができます。
+`K` パラメータは `HashMap` の「キー」を表す型です。
+ここで再び `get()` のシグネチャを見ると、キーが `Borrow<Q>` を実装しているときに `get()` を使えることが分かります。
+そのため、以下のように `String` をキーとした `HashMap` を検索するときに `&str` を使うことができます。
 
 ```rust
 use std::collections::HashMap;
@@ -58,7 +62,8 @@ assert_eq!(map.get("Foo"), Some(&42));
 <!-- kind of borrowed value. This is especially true of references and slices: you -->
 <!-- can have both an `&T` or a `&mut T`. If we wanted to accept both of these types, -->
 <!-- `Borrow` is up for it: -->
-所有型か借用型のどちらかを取りたい場合、たいていは `&T` で十分ですが、借用された値が複数種類ある場合 `Borrow` が役に立ちます。特に参照とスライスは `&T` と `&mut T` のいずれも取りうるため、そのどちらも受け入れたい場合は `Borrow` がよいでしょう。
+所有型か借用型のどちらかを取りたい場合、たいていは `&T` で十分ですが、借用された値が複数種類ある場合 `Borrow` が役に立ちます。
+特に参照とスライスは `&T` と `&mut T` のいずれも取りうるため、そのどちらも受け入れたい場合は `Borrow` がよいでしょう。
 
 ```rust
 use std::borrow::Borrow;
@@ -82,7 +87,8 @@ foo(&mut i);
 
 <!-- The `AsRef` trait is a conversion trait. It’s used for converting some value to -->
 <!-- a reference in generic code. Like this: -->
-`AsRef` トレイトは変換用のトレイトです。ジェネリックなコードにおいて、値を参照に変換したい場合に使います。
+`AsRef` トレイトは変換用のトレイトです。
+ジェネリックなコードにおいて、値を参照に変換したい場合に使います。
 
 ```rust
 let s = "Hello".to_string();

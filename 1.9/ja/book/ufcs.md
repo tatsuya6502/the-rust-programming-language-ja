@@ -2,7 +2,8 @@
 <!-- % Universal Function Call Syntax -->
 
 <!-- Sometimes, functions can have the same names. Consider this code: -->
-しばしば、同名の関数が存在する時があります。たとえば、以下のコードでは:
+しばしば、同名の関数が存在する時があります。
+たとえば、以下のコードでは:
 
 ```rust
 trait Foo {
