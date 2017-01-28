@@ -78,11 +78,11 @@ let y = x;
 <!--## `*const T` and `*mut T`-->
 ## `*const T` と `*mut T`
 
-<!--These are C-like raw pointers with no lifetime or ownership attached to them. They just point to-->
+<!-- These are C-like raw pointers with no lifetime or ownership attached to them. They point to -->
 <!--some location in memory with no other restrictions. The only guarantee that these provide is that-->
 <!--they cannot be dereferenced except in code marked `unsafe`.-->
 関連付けられたライフタイムや所有権を持たない、C的な生ポインタがあります。
-それらはメモリのある場所を何の制約もなく単に指示します。
+それらはメモリのある場所を何の制約もなく指示します。
 それらの提供する唯一の保証は、 `unsafe` であるとマークされたコードの外ではそれらが参照を外せないということです。
 
 <!--These are useful when building safe, low cost abstractions like `Vec<T>`, but should be avoided in-->
@@ -284,7 +284,7 @@ let x = RefCell::new(vec![1,2,3,4]);
 一般的に、そのような変更はネストした形式では発生しないと考えられますが、それをチェックすることはよいことです。
 
 <!--For large, complicated programs, it becomes useful to put some things in `RefCell`s to make things-->
-<!--simpler. For example, a lot of the maps in [the `ctxt` struct][ctxt] in the Rust compiler internals-->
+<!-- simpler. For example, a lot of the maps in the `ctxt` struct in the Rust compiler internals -->
 <!--are inside this wrapper. These are only modified once (during creation, which is not right after-->
 <!--initialization) or a couple of times in well-separated places. However, since this struct is-->
 <!--pervasively used everywhere, juggling mutable and immutable pointers would be hard (perhaps-->
@@ -293,7 +293,7 @@ let x = RefCell::new(vec![1,2,3,4]);
 <!--someone adds some code that attempts to modify the cell when it's already borrowed, it will cause a-->
 <!--(usually deterministic) panic which can be traced back to the offending borrow.-->
 大きく複雑なプログラムにとって、物事を単純にするために何かを `RefCell` の中に入れることは便利です。
-例えば、Rustコンパイラの内部の [`ctxt`構造体][ctxt] にあるたくさんのマップはこのラッパの中にあります。
+例えば、Rustコンパイラの内部の`ctxt`構造体にあるたくさんのマップはこのラッパの中にあります。
 それらは（初期化の直後ではなく生成の過程で）一度だけ変更されるか、又はきれいに分離された場所で数回変更されます。
 しかし、この構造体はあらゆる場所で全般的に使われているので、ミュータブルなポインタとイミュータブルなポインタとをジャグリング的に扱うのは難しく（あるいは不可能で）、おそらく拡張の困難な `&` ポインタのスープになってしまいます。
 一方、 `RefCell` はそれらにアクセスするための（ゼロコストではありませんが）低コストの方法です。
@@ -330,7 +330,6 @@ let x = RefCell::new(vec![1,2,3,4]);
 [cell-mod]: ../std/cell/
 [cell]: ../std/cell/struct.Cell.html
 [refcell]: ../std/cell/struct.RefCell.html
-[ctxt]: ../rustc/middle/ty/struct.ctxt.html
 
 <!--# Synchronous types-->
 # 同期型
@@ -358,7 +357,7 @@ let x = RefCell::new(vec![1,2,3,4]);
 
 ## `Arc<T>`
 
-<!--[`Arc<T>`][arc] is just a version of `Rc<T>` that uses an atomic reference count (hence, "Arc").-->
+<!-- [`Arc<T>`][arc] is a version of `Rc<T>` that uses an atomic reference count (hence, "Arc"). -->
 <!--This can be sent freely between threads.-->
 [`Arc<T>`][arc] はアトミックな参照カウントを使う `Rc<T>` の別バージョンです（そのため、「Arc」なのです）。
 これはスレッド間で自由に送ることができます。
@@ -373,7 +372,7 @@ let x = RefCell::new(vec![1,2,3,4]);
 C++の `shared_ptr` は `Arc` と似ていますが、C++の場合、中身のデータは常にミュータブルです。
 C++と同じセマンティクスで使うためには、 `Arc<Mutex<T>>` 、 `Arc<RwLock<T>>` 、 `Arc<UnsafeCell<T>>` を使うべきです [^4] （ `UnsafeCell<T>` はどんなデータでも持つことができ、実行時のコストも掛かりませんが、それにアクセスするためには `unsafe` ブロックが必要というセル型です）。
 最後のものは、その使用がメモリをアンセーフにしないことを確信している場合にだけ使うべきです。
-次のことを覚えましょう。構造体に書き込むのはアトミックな作業ではなく、`vec.push()`のような多くの関数は内部でメモリの再割当てを行い、アンセーフな挙動を引き起こす可能性があります。そのため単純な操作であるということだけでは `UnsafeCall` を正当化するには十分ではありません。
+次のことを覚えましょう。構造体に書き込むのはアトミックな作業ではなく、`vec.push()`のような多くの関数は内部でメモリの再割当てを行い、アンセーフな挙動を引き起こす可能性があります。そのため単純な操作であるということだけでは `UnsafeCell` を正当化するには十分ではありません。
 
 <!--[^4]: `Arc<UnsafeCell<T>>` actually won't compile since `UnsafeCell<T>` isn't `Send` or `Sync`, but we can wrap it in a type and implement `Send`/`Sync` for it manually to get `Arc<Wrapper<T>>` where `Wrapper` is `struct Wrapper<T>(UnsafeCell<T>)`.-->
 [^4]: `Arc<UnsafeCell<T>>` は `Send` や `Sync` ではないため、実際にはコンパイルできません。しかし、 `Arc<Wrapper<T>>` を得るために、手動でそれを `Send` と `Sync` を実装した型でラップすることができます。ここでの `Wrapper` は `struct Wrapper<T>(UnsafeCell<T>)` です。
@@ -479,7 +478,7 @@ Rustのコードを読むときに一般的な悩みは、 `Rc<RefCell<Vec<T>>>`
 <!--mutable. At the same time, there can only be one mutable borrow of the whole `Vec` at a given time.-->
 <!--This means that your code cannot simultaneously work on different elements of the vector from-->
 <!--different `Rc` handles. However, we are able to push and pop from the `Vec<T>` at will. This is-->
-<!--similar to an `&mut Vec<T>` with the borrow checking done at runtime.-->
+<!-- similar to a `&mut Vec<T>` with the borrow checking done at runtime. -->
 1つ目について、 `RefCell<T>` は `Vec<T>` をラップしているので、その `Vec<T>` 全体がミュータブルです。
 同時に、それらは特定の時間において `Vec` 全体の唯一のミュータブルな借用になり得ます。
 これは、コードがそのベクタの別の要素について、別の `Rc` ハンドルから同時には操作できないということを意味します。
@@ -488,7 +487,7 @@ Rustのコードを読むときに一般的な悩みは、 `Rc<RefCell<Vec<T>>>`
 
 <!--With the latter, the borrowing is of individual elements, but the overall vector is immutable. Thus,-->
 <!--we can independently borrow separate elements, but we cannot push or pop from the vector. This is-->
-<!--similar to an `&mut [T]`[^3], but, again, the borrow checking is at runtime.-->
+<!-- similar to a `&mut [T]`[^3], but, again, the borrow checking is at runtime. -->
 2つ目について、借用は個々の要素に対して行われますが、ベクタ全体がイミュータブルになります。
 そのため、異なる要素を別々に借用することができますが、ベクタに対するプッシュやポップを行うことはできません。
 これは `&mut [T]`[^3] と同じですが、やはり借用チェックは実行時に行われます。

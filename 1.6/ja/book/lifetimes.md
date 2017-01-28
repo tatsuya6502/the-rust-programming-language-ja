@@ -37,7 +37,7 @@
 <!-- of a zero-cost abstraction. All of the analysis we’ll talk about in this guide -->
 <!-- is _done at compile time_. You do not pay any run-time cost for any of these -->
 <!-- features. -->
-Rustは安全性とスピートに焦点を合わせます。
+Rustは安全性とスピードに焦点を合わせます。
 Rustはそれらの目標をたくさんの「ゼロコスト抽象化」を通じて成し遂げます。それは、Rustでは抽象化を機能させるためのコストをできる限り小さくすることを意味します。
 所有権システムはゼロコスト抽象化の主な例です。
 このガイドの中で話すであろう解析の全ては _コンパイル時に行われます_ 。
@@ -58,7 +58,7 @@ Rustはそれらの目標をたくさんの「ゼロコスト抽象化」を通�
 しかし、よいニュースがあります。より経験豊富なRustの開発者は次のことを報告します。一度彼らが所有権システムのルールとともにしばらく仕事をすれば、彼らが借用チェッカと戦うことは少なくなっていくということです。
 
 <!-- With that in mind, let’s learn about lifetimes. -->
-それを念頭に置いて、所有権について学びましょう。
+それを念頭に置いて、ライフタイムについて学びましょう。
 
 <!-- # Lifetimes -->
 # ライフタイム

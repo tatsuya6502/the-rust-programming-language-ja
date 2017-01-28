@@ -38,7 +38,7 @@ Rustが提供している多くのコードの再利用や抽象化に利用で�
 マクロベースのコードの欠点は、組み込みルールの少なさに由来するそのコードの理解のしづらさです。
 普通の関数と同じように、良いマクロはその実装について理解しなくても使うことができます。
 しかしながら、そのような良いマクロを設計するのは困難です！
-加えて、マクロコード中のコンパイルエラーは開発者が書いたソールレベルではなく、
+加えて、マクロコード中のコンパイルエラーは開発者が書いたソースレベルではなく、
 展開した結果のコードの中の問題について書かれているために、とても理解しづらいです。
 
 
@@ -299,7 +299,7 @@ fn main() {
 <!-- except `+` or `*`. -->
 上のコードはほとんどのマッチャーの構文を利用しています。
 この例では0個以上にマッチする `$(...)*` を利用しています、
-1つ以上にマッチさせたい場合は `$(...)+` を代りに利用する事ができます。
+1つ以上にマッチさせたい場合は `$(...)+` を代わりに利用する事ができます。
 また、どちらも補助的に区切りを指定する事ができます。区切りには、 `+` と `*` 以外の任意のトークンを指定することが可能です。
 
 <!-- This system is based on -->
@@ -316,7 +316,7 @@ fn main() {
 <!-- various problems. For example, this C program prints `13` instead of the -->
 <!-- expected `25`. -->
 いくつかの言語に組込まれているマクロは単純なテキストの置換を用いています、しかしこれは多くの問題を発生させます。
-例えば、以下のC言語のプログラムは期待している `25` の代りに `13` と出力します:
+例えば、以下のC言語のプログラムは期待している `25` の代わりに `13` と出力します:
 
 ```text
 #define FIVE_TIMES(x) 5 * x
@@ -439,7 +439,7 @@ fn main() {
 
 <!-- Instead you need to pass the variable name into the invocation, so it’s tagged -->
 <!-- with the right syntax context. -->
-代りに変数名を呼出時に渡す必要があります、
+代わりに変数名を呼出時に渡す必要があります、
 呼出時に渡す事で正しい構文コンテキストでタグ付けされます。
 
 ```rust
@@ -576,7 +576,7 @@ Rustのコードに展開されていないマクロが含まれていても、 
 <!-- expression / statement. Rust uses a simple rule to resolve this ambiguity. A -->
 <!-- macro invocation that stands for items must be either -->
 ブロック中でのマクロ呼出は、幾つかのアイテムや、一つの式 / 文 に対応します。
-Rustはこの曖昧性を判定するためにRustは単純なルールを利用します。
+Rustはこの曖昧性を判定するために単純なルールを利用します。
 アイテムに対応しているマクロ呼出は以下のどちらかでなければなりません
 
 <!-- * delimited by curly braces, e.g. `foo! { ... }`, or -->
@@ -650,7 +650,7 @@ Rustはこの曖昧性を判定するためにRustは単純なルールを利用
 <!-- be forced to choose between parsing `$t` and parsing `$e`. Changing the -->
 <!-- invocation syntax to put a distinctive token in front can solve the problem. In -->
 <!-- this case, you can write `$(T $t:ty)* E $e:exp`. -->
-マクロシステムはパースの曖昧さについてな何も対処しません。
+マクロシステムはパースの曖昧さについては何も対処しません。
 例えば、 `$($t:ty)* $e:expr` は常にパースが失敗します、
 なぜならパーサーは `$t` をパースするか、 `$e` をパースするかを選ぶことを強制されるためです。
 呼出構文を変更して識別可能なトークンを先頭につけることでこの問題は回避することができます。
@@ -691,7 +691,7 @@ Rustはこの曖昧性を判定するためにRustは単純なルールを利用
 
 <!-- The `macro_use` attribute can also appear on `extern crate`. In this context -->
 <!-- it controls which macros are loaded from the external crate, e.g. -->
-また、 `macro_use` アトリビュートは `extern create` の上でも利用することができます。
+また、 `macro_use` アトリビュートは `extern crate` の上でも利用することができます。
 そのようにした場合、 `macro_use` アトリビュートは外部のクレートからどのマクロをロードするのかを指定します。
 以下がその例です:
 
@@ -802,9 +802,9 @@ macro_rules! inc_b {
 Rustは(まだ)健全なクレートの参照の仕組みを持っていません、
 しかし、この問題に対する簡単な対処方法を提供しています。
 `foo`というクレートからインポートされたマクロ中において、
-特別なマクロ変数 `$create` は `::foo` に展開されます。
+特別なマクロ変数 `$crate` は `::foo` に展開されます。
 対照的に、マクロが同じクレートの中で定義され利用された場合、
-`$create` は何にも展開されません。これはつまり以下のように書けることを意味しています:
+`$crate` は何にも展開されません。これはつまり以下のように書けることを意味しています:
 
 ```rust
 #[macro_export]
