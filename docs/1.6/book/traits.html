@@ -580,7 +580,7 @@ example: the standard library provides a [`Write`][write] trait which adds
 extra functionality to `File`s, for doing file I/O. By default, a `File`
 won’t have its methods: -->
 
-<p>ここまでくると世紀末感が漂いますが、手に負えなくなることを防ぐためにトレイトの実装周りには2つの制限が設けられています。第1に、あなたのスコープ内で定義されていないトレイトは適用されません。例えば、標準ライブラリは <code>File</code> にI/O機能を追加するための <code>Write</code> トレイトを提供しています。デフォルトでは、 <code>File</code> は <code>Writes</code> で定義されるメソッド群を持っていません。</p>
+<p>ここまでくると世紀末感が漂いますが、手に負えなくなることを防ぐためにトレイトの実装周りには2つの制限が設けられています。第1に、あなたのスコープ内で定義されていないトレイトは適用されません。例えば、標準ライブラリは <code>File</code> にI/O機能を追加するための <code>Write</code> トレイトを提供しています。デフォルトでは、 <code>File</code> は <code>Write</code> で定義されるメソッド群を持っていません。</p>
 
 <span class='rusttest'>fn main() {
     let mut f = std::fs::File::open(&quot;foo.txt&quot;).expect(&quot;Couldn’t open foo.txt&quot;);
@@ -643,7 +643,7 @@ not, because neither the trait nor the type are in our code. -->
 ‘monomorphization’ (mono: one, morph: form), so they are statically dispatched.
 What’s that mean? Check out the chapter on [trait objects][to] for more details. -->
 
-<p>トレイトに関して最後に1つ。トレイト境界が設定されたジェネリック関数は「単相化」(monomorphization)(mono:単一の、morph:様相)されるため、静的ディスパッチが行われます。一体どういう意味でしょうか？詳細については、 <a href="trait-objects.html">トレイトオブジェクト</a> の章をチェックしてください。</p>
+<p>トレイトに関して最後に1つ。トレイト境界が設定されたジェネリック関数は「単相化」(monomorphization)（mono: 単一の、morph: 相）されるため、静的ディスパッチが行われます。一体どういう意味でしょうか？詳細については、 <a href="trait-objects.html">トレイトオブジェクト</a> の章をチェックしてください。</p>
 
 <!-- # Multiple trait bounds -->
 

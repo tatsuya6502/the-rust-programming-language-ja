@@ -266,7 +266,7 @@ that if the trait isn’t defined in your scope, it doesn’t apply. Here’s an
 example: the standard library provides a [`Write`][write] trait which adds
 extra functionality to `File`s, for doing file I/O. By default, a `File`
 won’t have its methods: -->
-ここまでくると世紀末感が漂いますが、手に負えなくなることを防ぐためにトレイトの実装周りには2つの制限が設けられています。第1に、あなたのスコープ内で定義されていないトレイトは適用されません。例えば、標準ライブラリは `File` にI/O機能を追加するための `Write` トレイトを提供しています。デフォルトでは、 `File` は `Writes` で定義されるメソッド群を持っていません。
+ここまでくると世紀末感が漂いますが、手に負えなくなることを防ぐためにトレイトの実装周りには2つの制限が設けられています。第1に、あなたのスコープ内で定義されていないトレイトは適用されません。例えば、標準ライブラリは `File` にI/O機能を追加するための `Write` トレイトを提供しています。デフォルトでは、 `File` は `Write` で定義されるメソッド群を持っていません。
 
 [write]: ../std/io/trait.Write.html
 
@@ -324,7 +324,7 @@ the type are defined in our crate. -->
 <!-- One last thing about traits: generic functions with a trait bound use
 ‘monomorphization’ (mono: one, morph: form), so they are statically dispatched.
 What’s that mean? Check out the chapter on [trait objects][to] for more details. -->
-トレイトに関して最後に1つ。トレイト境界が設定されたジェネリック関数は「単相化」(monomorphization)(mono:単一の、morph:様相)されるため、静的ディスパッチが行われます。一体どういう意味でしょうか？詳細については、 [トレイトオブジェクト][to] の章をチェックしてください。
+トレイトに関して最後に1つ。トレイト境界が設定されたジェネリック関数は「単相化」(monomorphization)（mono: 単一の、morph: 相）されるため、静的ディスパッチが行われます。一体どういう意味でしょうか？詳細については、 [トレイトオブジェクト][to] の章をチェックしてください。
 
 [cm]: crates-and-modules.html
 [to]: trait-objects.html

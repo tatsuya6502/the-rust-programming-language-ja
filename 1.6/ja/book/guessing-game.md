@@ -99,7 +99,7 @@ Hello, world!
 <!-- Let’s get to it! The first thing we need to do for our guessing game is -->
 <!-- allow our player to input a guess. Put this in your `src/main.rs`: -->
 とりかかりましょう!
-数当てゲームでまずしなければいけないことはプレイヤーに予想値を入力させることです。
+数当てゲームでまずしなければいけないことはプレイヤに予想値を入力させることです。
 これを `src/main.rs` に書きましょう。
 
 
@@ -163,7 +163,7 @@ fn main() {
 <!-- there are no arguments, and `{` starts the body of the function. Because -->
 <!-- we didn’t include a return type, it’s assumed to be `()`, an empty -->
 <!-- [tuple][tuples]. -->
-以前見たように `main()` 関数がプログラムのエントリーポイントになります。
+以前見たように `main()` 関数がプログラムのエントリポイントになります。
 `fn` 構文で新たな関数を宣言し、 `()` が引数がないことを示し、 `{` が関数の本体部の始まりです。
 返り値の型は書いていないので `()` 、空の[タプル][tuples]として扱われます。
 
@@ -257,7 +257,7 @@ let mut bar = 5; // ミュータブル
 <!-- This function is named `new()`, because it creates a new, empty `String`. -->
 <!-- You’ll find a `new()` function on many types, as it’s a common name for making -->
 <!-- a new value of some kind. -->
-この関数は新たな空の `String` を作るので `new()` の名付けられています。
+この関数は新たな空の `String` を作るので `new()` と名付けられています。
 `new()` 関数はある種の新たな値を作るのによく使われる名前なので様々な型でこの関数を見るでしょう。
 
 
@@ -648,7 +648,7 @@ fn main() {
 <!-- does the equivalent of a `use rand;` as well, so we can make use of anything -->
 <!-- in the `rand` crate by prefixing it with `rand::`. -->
 まず最初に変更したのは最初の行です。 `extern crate rand` となっています。
-`rand` を `[dependencies]` に宣言したので、 `extern crate` でそれを使うことをRustに伝えれます。
+`rand` を `[dependencies]` に宣言したので、 `extern crate` でそれを使うことをRustに伝えています。
 これはまた、 `use rand;` とするのと同じこともしますので、 `rand` にあるものは `rand::` と前置すれば使えるようになります。
 
 <!-- Next, we added another `use` line: `use rand::Rng`. We’re going to use a -->
@@ -768,7 +768,7 @@ fn main() {
 <!-- A few new bits here. The first is another `use`. We bring a type called -->
 <!-- `std::cmp::Ordering` into scope. Then, five new lines at the bottom that use -->
 <!-- it: -->
-いくか新しいことがあります。まず、新たに `use` が増えました。 `std::cmp::Ordering` をスコープに導入します。
+いくつか新しいことがあります。まず、新たに `use` が増えました。 `std::cmp::Ordering` をスコープに導入します。
 そして、末尾にそれを使うコードが5行増えてます。
 
 

@@ -183,8 +183,8 @@ let takes_nums = || nums;
 <!-- in our closure, we have to take ownership of `nums`. It’s the same as if we’d -->
 <!-- passed `nums` to a function that took ownership of it. -->
 `Vec<T>` はその要素に対する所有権を持っています、
-それゆえそれらの要素をクロージャ内で参照した場合、 `num` の所有権を取ることになります。
-これは `num`を `num` の所有権を取る関数に渡した場合と同じです。
+それゆえそれらの要素をクロージャ内で参照した場合、 `nums` の所有権を取ることになります。
+これは `nums`を `nums` の所有権を取る関数に渡した場合と同じです。
 
 <!-- ## `move` closures -->
 ## `move` クロージャ
@@ -271,7 +271,7 @@ assert_eq!(5, num);
 <!-- objects][trait-objects]. -->
 Rustにおけるクロージャの実装は他の言語とは少し異なります。
 Rustにおけるクロージャは実質的にトレイトへの糖衣構文です。
-続きの説明を読む前に [トレイト][traits] や [トレイトオブジェクト][trait-objects] についてのチャプターを学ぶ前に読みたくなるでしょう。
+続きの説明を読む前に [トレイト][traits] や [トレイトオブジェクト][trait-objects] についてのチャプタを読みたくなるでしょう。
 
 [traits]: traits.html
 [trait-objects]: trait-objects.html

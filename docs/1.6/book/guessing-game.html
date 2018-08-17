@@ -304,7 +304,7 @@ Hello, world!
 <!-- allow our player to input a guess. Put this in your `src/main.rs`: -->
 
 <p>とりかかりましょう!
-数当てゲームでまずしなければいけないことはプレイヤーに予想値を入力させることです。
+数当てゲームでまずしなければいけないことはプレイヤに予想値を入力させることです。
 これを <code>src/main.rs</code> に書きましょう。</p>
 
 <span class='rusttest'>use std::io;
@@ -392,7 +392,7 @@ Rustが全てのプログラムにデフォルトで読み込むものは少し�
 
 <!-- [tuple][tuples]. -->
 
-<p>以前見たように <code>main()</code> 関数がプログラムのエントリーポイントになります。
+<p>以前見たように <code>main()</code> 関数がプログラムのエントリポイントになります。
 <code>fn</code> 構文で新たな関数を宣言し、 <code>()</code> が引数がないことを示し、 <code>{</code> が関数の本体部の始まりです。
 返り値の型は書いていないので <code>()</code> 、空の<a href="primitive-types.html#tuples">タプル</a>として扱われます。</p>
 
@@ -504,7 +504,7 @@ let mut bar = 5; // ミュータブル
 
 <!-- a new value of some kind. -->
 
-<p>この関数は新たな空の <code>String</code> を作るので <code>new()</code> の名付けられています。
+<p>この関数は新たな空の <code>String</code> を作るので <code>new()</code> と名付けられています。
 <code>new()</code> 関数はある種の新たな値を作るのによく使われる名前なので様々な型でこの関数を見るでしょう。</p>
 
 <!-- Let’s move forward: -->
@@ -1031,7 +1031,7 @@ fn main() {
 <!-- in the `rand` crate by prefixing it with `rand::`. -->
 
 <p>まず最初に変更したのは最初の行です。 <code>extern crate rand</code> となっています。
-<code>rand</code> を <code>[dependencies]</code> に宣言したので、 <code>extern crate</code> でそれを使うことをRustに伝えれます。
+<code>rand</code> を <code>[dependencies]</code> に宣言したので、 <code>extern crate</code> でそれを使うことをRustに伝えています。
 これはまた、 <code>use rand;</code> とするのと同じこともしますので、 <code>rand</code> にあるものは <code>rand::</code> と前置すれば使えるようになります。</p>
 
 <!-- Next, we added another `use` line: `use rand::Rng`. We’re going to use a -->
@@ -1201,7 +1201,7 @@ fn main() {
 
 <!-- it: -->
 
-<p>いくか新しいことがあります。まず、新たに <code>use</code> が増えました。 <code>std::cmp::Ordering</code> をスコープに導入します。
+<p>いくつか新しいことがあります。まず、新たに <code>use</code> が増えました。 <code>std::cmp::Ordering</code> をスコープに導入します。
 そして、末尾にそれを使うコードが5行増えてます。</p>
 
 <span class='rusttest'>fn main() {

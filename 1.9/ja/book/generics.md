@@ -8,13 +8,13 @@
 <!-- is multiple, ‘morph’ is form) over a given parameter (‘parametric’). -->
 時々、関数やデータ型を書いていると、引数が複数の型に対応したものが欲しくなることもあります。
 Rustでは、ジェネリクスを用いてこれを実現しています。
-ジェネリクスは型理論において「パラメトリック多相」(parametric polymorphism)と呼ばれ、与えられたパラメータにより(「parametric」)型もしくは関数が多数の様相(「poly」は多様、「morph」は様相を意味します)
-(訳注: ここで「様相」は型を指します)を持つことを意味しています。
+ジェネリクスは型理論において「パラメトリック多相」(parametric polymorphism)と呼ばれ、与えられたパラメータにより(「parametric」)型もしくは関数が多くの相（「poly」は「多くの」、「morph」は「相（かたち）」を意味します）
+（訳注: ここで「相」は型を指します）を持つことを意味しています。
 
 <!-- Anyway, enough type theory, let’s check out some generic code. Rust’s -->
 <!-- standard library provides a type, `Option<T>`, that’s generic: -->
 さて、型理論はもう十分です。
-続いてジェネリックなコードを幾つか見ていきましょう。
+続いてジェネリックなコードをいくつか見ていきましょう。
 Rustが標準ライブラリで提供している型 `Option<T>` はジェネリックです。
 
 ```rust
@@ -54,10 +54,10 @@ let x: Option<f64> = Some(5);
 // found `core::option::Option<_>` (expected f64 but found integral variable)
 ```
 
-<!-- That doesn’t mean we can’t make `Option<T>`s that hold an `f64`! They just have -->
+<!-- That doesn’t mean we can’t make `Option<T>`s that hold an `f64`! They have -->
 <!-- to match up: -->
 これは `f64` を保持する `Option<T>` が作れないという意味ではありませんからね！
-リテラルと宣言の型をぴったり合わせなければなりません。
+リテラルと宣言の型を合わせなければなりません。
 
 ```rust
 let x: Option<i32> = Some(5);
@@ -66,7 +66,7 @@ let y: Option<f64> = Some(5.0f64);
 
 <!-- This is just fine. One definition, multiple uses. -->
 これだけで結構です。
-1つの定義で、多くの用途が得られます。
+1つの定義で、多くの用途に対応できます。
 
 <!-- Generics don’t have to only be generic over one type. Consider another type from Rust’s standard library that’s similar, `Result<T, E>`: -->
 ジェネリクスにおいてジェネリックな型は1つまで、といった制限はありません。
@@ -157,9 +157,9 @@ let float_origin = Point { x: 0.0, y: 0.0 };
 <!-- and we then use `x: T` in the type declaration, too. -->
 関数と同様に、 `<T>` がジェネリックパラメータを宣言する場所であり、型宣言において `x: T` を使うのも同じです。
 
-<!-- When you want to add an implementation for the generic `struct`, you just -->
+<!-- When you want to add an implementation for the generic `struct`, you -->
 <!-- declare the type parameter after the `impl`: -->
-ジェネリックな `struct` に実装を追加したい場合、 `impl` の後に型パラメータを宣言するだけです。
+ジェネリックな `struct` に実装を追加したい場合、 `impl` の後に型パラメータを宣言します。
 
 ```rust
 # struct Point<T> {

@@ -3,7 +3,7 @@
 * カタカナ語のままで違和感のない用語はカタカナ語のまま使う
   + 気持としては「無理矢理和訳」を避けたい。そのための基準。
   + カタカナ語の方が用語として認識しやすい
-* カタカナ語の末尾の長音記号「ー」は省く(JIS規格)
+* 3音以上のカタカナ語の末尾の長音記号「ー」は省く（[JIS Z 8301:2011](http://kikakurui.com/z8/Z8301-2011-01.html) G.6.2.2 b 表3を参照）
 * 構文キーワードなどはそのままアルファベットを使う
 
 # 対訳表
@@ -65,8 +65,8 @@
 | directory                      | ディレクトリ
 | discriminant                   | 判別子
 | distribution                   | 配布物
-| diverge                        | ダイバージ
-| diverging                      | ダイバージング
+| diverge                        | 発散する
+| diverging                      | 発散する〜（上の diverge を修飾語として使った場合）
 | documentation comment          | ドキュメンテーションコメント
 | documentation test             | ドキュメンテーションテスト
 | early return                   | 早期リターン
@@ -150,7 +150,7 @@
 | platform                       | プラットフォーム
 | pointer                        | ポインタ
 | process                        | プロセス
-| range                          | レンジ
+| range                          | 範囲
 | raw pointer                    | 生ポインタ
 | raw string literal             | 生文字列リテラル
 | re-assignment                  | 再代入
@@ -180,6 +180,7 @@
 | standard library               | 標準ライブラリ
 | string                         | 文字列
 | string interpolation           | 文字列インターポーレーション
+| string slice                   | 文字列スライス
 | struct                         | 構造体
 | structure                      | ストラクチャ
 | sum type                       | 直和型
